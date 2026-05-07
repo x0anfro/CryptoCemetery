@@ -109,8 +109,8 @@ export function ScamModal({ tombstone, onClose }: Props) {
             {/* stats */}
             <div className="mt-auto border-t border-border pt-4 grid grid-cols-2 gap-4">
               {[
-                ...(tombstone.amount_lost ? [{ k: tombstone.amount_label ?? "Потери", v: tombstone.amount_lost, c: "text-red-400" }] : []),
-                { k: "Группа", v: tombstone.group, c: "text-accent" },
+                ...(tombstone.amount_lost ? [{ k: tombstone.amount_label ?? "Lost", v: tombstone.amount_lost, c: "text-red-400" }] : []),
+                { k: "Group", v: tombstone.group, c: "text-accent" },
               ].map(({ k, v, c }) => (
                 <div key={k}>
                   <div className="font-mono text-[9px] text-muted/60 uppercase tracking-wider mb-0.5">{k}</div>
