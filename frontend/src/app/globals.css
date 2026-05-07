@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: #0a0c0f;
+  color: #c8dce8;
+  font-family: var(--font-grotesk, system-ui, sans-serif);
+}
+
+/* ── Site background ─────────────────────────────────── */
+.site-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("/bg.png");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  opacity: 0.35;
+}
+
+/* ── Dark overlay over bg ────────────────────────────── */
+.site-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #0a0c0f55 0%, #0a0c0f 75%);
+}
+
+/* ── Cut-corner clip ─────────────────────────────────── */
+.clip-cut {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+}
+.clip-cut-sm {
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+}
+
+/* ── Card hover lift ─────────────────────────────────── */
+.card-lift {
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px -8px rgba(91, 155, 213, 0.15);
+}
+
+/* ── Diagonal line divider ───────────────────────────── */
+.poly-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.poly-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, #1e3a57, transparent);
+}
+
+/* ── Scrollbar ───────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0a1628; }
+::-webkit-scrollbar-thumb { background: #1e3a57; border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: #5b9bd5; }
+
+/* ── Selection ───────────────────────────────────────── */
+::selection { background: #5b9bd530; color: #5b9bd5; }
+
+/* ── Float (ghost letters) ───────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* ── Stacking above hex grid ─────────────────────────── */
+header, main, footer { position: relative; z-index: 1; }
+
+/* ── Blood drip falling lines ────────────────────────── */
+@keyframes blood-drip {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -13; }
+}
+
+/* ── Modal entrance ──────────────────────────────────── */
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(0.96) translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+.modal-enter {
+  animation: modal-in 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}

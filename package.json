@@ -1,0 +1,20 @@
+{
+  "name": "crypto-cemetery",
+  "version": "1.0.0",
+  "description": "NFT collection of crypto's greatest disasters",
+  "scripts": {
+    "test": "hardhat test",
+    "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy.js --network shape",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "metadata": "node scripts/generateMetadata.js"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0",
+    "dotenv": "^16.4.0"
+  }
+}

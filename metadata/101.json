@@ -1,0 +1,48 @@
+{
+  "name": "Sam Bankman-Fried — The FTX Villain",
+  "description": "LEGENDARY. Sam Bankman-Fried (aka \"SBF\") — the mastermind behind the FTX collapse. Obtain only by burning the FTX tombstone trifecta. One exists. Ever.",
+  "image": "ipfs://bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i",
+  "external_url": "https://crypto-cemetery.xyz/legendary/101",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Legendary Villain"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Alias",
+      "value": "SBF"
+    },
+    {
+      "trait_type": "Crime",
+      "value": "Fraud & Mismanagement"
+    },
+    {
+      "trait_type": "Sentence",
+      "value": "25 years"
+    },
+    {
+      "trait_type": "Status",
+      "value": "Convicted"
+    },
+    {
+      "trait_type": "Total Damage",
+      "value": "$32,000,000,000"
+    },
+    {
+      "trait_type": "Victims",
+      "value": "1,000,000+"
+    },
+    {
+      "trait_type": "Villain Group",
+      "value": "FTX"
+    },
+    {
+      "trait_type": "Famous Quote",
+      "value": "I didn't knowingly commit fraud. I think."
+    }
+  ]
+}

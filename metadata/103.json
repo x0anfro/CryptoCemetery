@@ -1,0 +1,48 @@
+{
+  "name": "Mark Karpeles — The Mt. Gox Villain",
+  "description": "LEGENDARY. Mark Karpeles (aka \"MagicalTux\") — the mastermind behind the Mt. Gox collapse. Obtain only by burning the Mt. Gox tombstone trifecta. One exists. Ever.",
+  "image": "ipfs://bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i",
+  "external_url": "https://crypto-cemetery.xyz/legendary/103",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Legendary Villain"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Alias",
+      "value": "MagicalTux"
+    },
+    {
+      "trait_type": "Crime",
+      "value": "Embezzlement & Data Manipulation"
+    },
+    {
+      "trait_type": "Sentence",
+      "value": "2.5 years suspended"
+    },
+    {
+      "trait_type": "Status",
+      "value": "Convicted (Japan)"
+    },
+    {
+      "trait_type": "Total Damage",
+      "value": "$473,000,000"
+    },
+    {
+      "trait_type": "Victims",
+      "value": "850,000"
+    },
+    {
+      "trait_type": "Villain Group",
+      "value": "Mt. Gox"
+    },
+    {
+      "trait_type": "Famous Quote",
+      "value": "I was busy coding."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "??? ✝ — Coming Soon",
+  "description": "This tombstone has not been revealed yet. A new wave is coming to Crypto Cemetery.",
+  "image": "ipfs://bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i",
+  "external_url": "https://crypto-cemetery.xyz/tombstone/14",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Tombstone"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Status",
+      "value": "Unrevealed"
+    }
+  ]
+}

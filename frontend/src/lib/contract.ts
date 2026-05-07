@@ -1,0 +1,170 @@
+export const CONTRACT_ADDRESS =
+  (process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`) ?? "0x0000000000000000000000000000000000000000";
+
+export const ABI = [
+  {
+    name: "mint",
+    type: "function",
+    stateMutability: "payable",
+    inputs: [{ name: "tokenId", type: "uint256" }],
+    outputs: [],
+  },
+  {
+    name: "craft",
+    type: "function",
+    stateMutability: "payable",
+    inputs: [{ name: "tokenIds", type: "uint256[3]" }],
+    outputs: [],
+  },
+  {
+    name: "craftFTXStage1",
+    type: "function",
+    stateMutability: "payable",
+    inputs: [{ name: "tokenIds", type: "uint256[3]" }],
+    outputs: [],
+  },
+  {
+    name: "craftSBF",
+    type: "function",
+    stateMutability: "payable",
+    inputs: [],
+    outputs: [],
+  },
+  {
+    name: "craftBilyuchenko",
+    type: "function",
+    stateMutability: "payable",
+    inputs: [{ name: "tokenIds", type: "uint256[3]" }],
+    outputs: [],
+  },
+  {
+    name: "craftKarpeles",
+    type: "function",
+    stateMutability: "payable",
+    inputs: [],
+    outputs: [],
+  },
+  {
+    name: "craftVinnik",
+    type: "function",
+    stateMutability: "payable",
+    inputs: [],
+    outputs: [],
+  },
+  {
+    name: "craftArcaro",
+    type: "function",
+    stateMutability: "payable",
+    inputs: [{ name: "tokenIds", type: "uint256[3]" }],
+    outputs: [],
+  },
+  {
+    name: "craftMatos",
+    type: "function",
+    stateMutability: "payable",
+    inputs: [],
+    outputs: [],
+  },
+  {
+    name: "craftKumbhani",
+    type: "function",
+    stateMutability: "payable",
+    inputs: [],
+    outputs: [],
+  },
+  {
+    name: "craftDoKwon",
+    type: "function",
+    stateMutability: "payable",
+    inputs: [],
+    outputs: [],
+  },
+  {
+    name: "craftSuZhu",
+    type: "function",
+    stateMutability: "payable",
+    inputs: [],
+    outputs: [],
+  },
+  {
+    name: "craftMashinsky",
+    type: "function",
+    stateMutability: "payable",
+    inputs: [],
+    outputs: [],
+  },
+  {
+    name: "craftOneCoinWitness",
+    type: "function",
+    stateMutability: "payable",
+    inputs: [],
+    outputs: [],
+  },
+  {
+    name: "craftRuja",
+    type: "function",
+    stateMutability: "payable",
+    inputs: [],
+    outputs: [],
+  },
+  {
+    name: "balanceOf",
+    type: "function",
+    stateMutability: "view",
+    inputs: [
+      { name: "account", type: "address" },
+      { name: "id", type: "uint256" },
+    ],
+    outputs: [{ type: "uint256" }],
+  },
+  {
+    name: "totalSupply",
+    type: "function",
+    stateMutability: "view",
+    inputs: [{ name: "id", type: "uint256" }],
+    outputs: [{ type: "uint256" }],
+  },
+  {
+    name: "legendaryCrafted",
+    type: "function",
+    stateMutability: "view",
+    inputs: [{ name: "", type: "uint256" }],
+    outputs: [{ type: "bool" }],
+  },
+  {
+    name: "TombstoneMinted",
+    type: "event",
+    inputs: [
+      { name: "to", type: "address", indexed: true },
+      { name: "tokenId", type: "uint256", indexed: true },
+    ],
+  },
+  {
+    name: "LegendaryCrafted",
+    type: "event",
+    inputs: [
+      { name: "by", type: "address", indexed: true },
+      { name: "burned", type: "uint256[3]", indexed: false },
+      { name: "minted", type: "uint256", indexed: true },
+    ],
+  },
+  {
+    name: "FTXWitnessCrafted",
+    type: "event",
+    inputs: [
+      { name: "by", type: "address", indexed: true },
+      { name: "burned", type: "uint256[3]", indexed: false },
+      { name: "received", type: "uint256", indexed: true },
+    ],
+  },
+  {
+    name: "SBFCrafted",
+    type: "event",
+    inputs: [
+      { name: "by", type: "address", indexed: true },
+    ],
+  },
+] as const;
+
+export const MINT_PRICE  = BigInt("420000000000000"); // 0.00042 ETH
+export const CRAFT_PRICE = BigInt("420000000000000"); // 0.00042 ETH

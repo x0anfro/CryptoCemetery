@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Bolder skull for tiny sizes -->
+  <path d="M50 72 Q50 28 100 28 Q150 28 150 72 L150 116 Q150 132 138 138 L138 156 L118 156 L118 142 L108 142 L108 156 L92 156 L92 142 L82 142 L82 156 L62 156 L62 138 Q50 132 50 116 Z"
+        stroke="#FFFFFF" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- Bigger eye candles, more visible at small size -->
+  <rect x="68" y="72" width="20" height="32" fill="#FFFFFF"/>
+  <rect x="112" y="72" width="20" height="32" fill="#FFFFFF"/>
+  <!-- Nose -->
+  <path d="M100 112 L92 128 L108 128 Z" fill="#FFFFFF"/>
+</svg>

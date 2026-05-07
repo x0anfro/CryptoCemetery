@@ -1,0 +1,48 @@
+{
+  "name": "Alex Mashinsky — The Celsius Villain",
+  "description": "LEGENDARY. Alex Mashinsky (aka \"The Unbanker\") — the mastermind behind the Celsius collapse. Obtain only by burning the Celsius tombstone trifecta. One exists. Ever.",
+  "image": "ipfs://bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i",
+  "external_url": "https://crypto-cemetery.xyz/legendary/106",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Legendary Villain"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Alias",
+      "value": "The Unbanker"
+    },
+    {
+      "trait_type": "Crime",
+      "value": "Fraud & Market Manipulation"
+    },
+    {
+      "trait_type": "Sentence",
+      "value": "Pending trial"
+    },
+    {
+      "trait_type": "Status",
+      "value": "Charged"
+    },
+    {
+      "trait_type": "Total Damage",
+      "value": "$4,700,000,000"
+    },
+    {
+      "trait_type": "Victims",
+      "value": "600,000+"
+    },
+    {
+      "trait_type": "Villain Group",
+      "value": "Celsius"
+    },
+    {
+      "trait_type": "Famous Quote",
+      "value": "Banks are not your friends. I am."
+    }
+  ]
+}

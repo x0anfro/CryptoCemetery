@@ -1,0 +1,48 @@
+{
+  "name": "Ruja Ignatova — The OneCoin Villain",
+  "description": "LEGENDARY. Ruja Ignatova (aka \"Cryptoqueen\") — the mastermind behind the OneCoin collapse. Obtain only by burning the OneCoin tombstone trifecta. One exists. Ever.",
+  "image": "ipfs://bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i",
+  "external_url": "https://crypto-cemetery.xyz/legendary/105",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Legendary Villain"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Alias",
+      "value": "Cryptoqueen"
+    },
+    {
+      "trait_type": "Crime",
+      "value": "Wire Fraud & Money Laundering"
+    },
+    {
+      "trait_type": "Sentence",
+      "value": "Fugitive (FBI Top 10)"
+    },
+    {
+      "trait_type": "Status",
+      "value": "At Large"
+    },
+    {
+      "trait_type": "Total Damage",
+      "value": "$25,000,000,000"
+    },
+    {
+      "trait_type": "Victims",
+      "value": "3,000,000+"
+    },
+    {
+      "trait_type": "Villain Group",
+      "value": "OneCoin"
+    },
+    {
+      "trait_type": "Famous Quote",
+      "value": "OneCoin will replace Bitcoin."
+    }
+  ]
+}

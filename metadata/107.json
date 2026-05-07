@@ -1,0 +1,48 @@
+{
+  "name": "Su Zhu — The 3AC Villain",
+  "description": "LEGENDARY. Su Zhu (aka \"Supercycle Su\") — the mastermind behind the 3AC collapse. Obtain only by burning the 3AC tombstone trifecta. One exists. Ever.",
+  "image": "ipfs://bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i",
+  "external_url": "https://crypto-cemetery.xyz/legendary/107",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Legendary Villain"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Alias",
+      "value": "Supercycle Su"
+    },
+    {
+      "trait_type": "Crime",
+      "value": "Contempt of Court & Fraud"
+    },
+    {
+      "trait_type": "Sentence",
+      "value": "4 months (Singapore)"
+    },
+    {
+      "trait_type": "Status",
+      "value": "Convicted"
+    },
+    {
+      "trait_type": "Total Damage",
+      "value": "$3,500,000,000"
+    },
+    {
+      "trait_type": "Victims",
+      "value": "100,000+"
+    },
+    {
+      "trait_type": "Villain Group",
+      "value": "3AC"
+    },
+    {
+      "trait_type": "Famous Quote",
+      "value": "We are in a supercycle."
+    }
+  ]
+}
