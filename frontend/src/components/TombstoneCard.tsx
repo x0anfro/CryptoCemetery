@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useAccount, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import { useAccount, useWriteContract, useWaitForTransactionReceipt, useChainId, useSwitchChain } from "wagmi";
 import { ABI, CONTRACT_ADDRESS, MINT_PRICE } from "@/lib/contract";
 import { type Tombstone } from "@/lib/data";
 import { ScamModal } from "./ScamModal";
+
+const SHAPE_CHAIN_ID = 360;
 
 const CAUSE_COLORS: Record<string, string> = {
   Hack:          "text-red-400 border-red-900/60 bg-red-950/40",
@@ -50,6 +52,8 @@ interface Props {
 
 export function TombstoneCard({ tombstone, owned = 0 }: Props) {
   const { isConnected } = useAccount();
+  const chainId = useChainId();
+  const { switchChain } = useSwitchChain();
   const [txHash, setTxHash] = useState<`0x${string}` | undefined>();
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -57,8 +61,13 @@ export function TombstoneCard({ tombstone, owned = 0 }: Props) {
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash: txHash });
 
   const isBusy = isPending || isConfirming;
+  const isWrongNetwork = isConnected && chainId !== SHAPE_CHAIN_ID;
 
   function handleMint() {
+    if (isWrongNetwork) {
+      switchChain({ chainId: SHAPE_CHAIN_ID });
+      return;
+    }
     writeContract(
       {
         address: CONTRACT_ADDRESS,
@@ -140,16 +149,19 @@ export function TombstoneCard({ tombstone, owned = 0 }: Props) {
               ? "bg-accent/10 text-accent border border-accent/40"
               : isBusy
               ? "bg-surface text-muted border border-border cursor-wait"
+              : isWrongNetwork
+              ? "bg-orange-950/40 text-orange-400 border border-orange-700 hover:bg-orange-900/40"
               : isConnected
               ? "bg-accent/10 text-accent border border-accent/50 hover:bg-accent/20 hover:border-accent"
               : "bg-surface text-muted/50 border border-border cursor-not-allowed"
             }
           `}
         >
-          {!isConnected ? "Connect Wallet"
-            : isBusy     ? "Confirming…"
-            : isSuccess  ? "✓ Minted"
-            :              "Mint · 0.00042 ETH"}
+          {!isConnected    ? "Connect Wallet"
+            : isBusy       ? "Confirming…"
+            : isSuccess    ? "✓ Minted"
+            : isWrongNetwork ? "Switch to Shape"
+            :                "Mint · 0.00042 ETH"}
         </button>
       </div>
 
