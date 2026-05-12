@@ -108,7 +108,7 @@ const INTERMEDIATES = [
 
 function buildTombstone(t) {
   return {
-    name: `${t.name} ✝`,
+    name: `${t.name}`,
     description: t.description || `A tombstone commemorating the collapse of ${t.name} (${t.born}–${t.died}). ${t.epitaph} Part of the ${t.group} set — collect the full set to craft the villain portrait.`,
     image: img(t.id),
     external_url: `https://cryptometery.xyz/tombstone/${t.id}`,
