@@ -1,16 +1,20 @@
 {
-  "name": "Mark Karpeles — The Mt. Gox Villain",
-  "description": "LEGENDARY. Mark Karpeles (aka \"MagicalTux\") — the mastermind behind the Mt. Gox collapse. Obtain only by burning the Mt. Gox tombstone trifecta. One exists. Ever.",
-  "image": "ipfs://bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i",
-  "external_url": "https://crypto-cemetery.xyz/legendary/103",
+  "name": "Mark Karpeles",
+  "description": "LEGENDARY — Mark Karpeles (aka \"MagicalTux\"), mastermind behind the Mt. Gox collapse. Crime: Embezzlement. Status: Convicted (Japan). \"I was busy coding.\"",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/103.jpg",
+  "external_url": "https://cryptometery.xyz/legendary/103",
   "attributes": [
     {
       "trait_type": "Type",
-      "value": "Legendary Villain"
+      "value": "Legendary Villain Portrait"
     },
     {
       "trait_type": "Rarity",
       "value": "Legendary"
+    },
+    {
+      "trait_type": "Group",
+      "value": "Mt. Gox"
     },
     {
       "trait_type": "Alias",
@@ -18,11 +22,11 @@
     },
     {
       "trait_type": "Crime",
-      "value": "Embezzlement & Data Manipulation"
+      "value": "Embezzlement"
     },
     {
       "trait_type": "Sentence",
-      "value": "2.5 years suspended"
+      "value": "2.5 yrs suspended"
     },
     {
       "trait_type": "Status",
@@ -35,10 +39,6 @@
     {
       "trait_type": "Victims",
       "value": "850,000"
-    },
-    {
-      "trait_type": "Villain Group",
-      "value": "Mt. Gox"
     },
     {
       "trait_type": "Famous Quote",

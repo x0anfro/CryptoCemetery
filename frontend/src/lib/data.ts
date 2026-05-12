@@ -1,4 +1,4 @@
-export type CauseOfDeath = "Hack" | "Ponzi" | "Rug Pull" | "Mismanagement" | "Hubris";
+export type CauseOfDeath = "Hack" | "Ponzi" | "Rug Pull" | "Mismanagement" | "Hubris" | "Lost";
 
 export interface Tombstone {
   id: number;
@@ -13,6 +13,9 @@ export interface Tombstone {
   villain: string;
   founder?: string;
   image?: string;
+  video?: string;
+  hideEra?: boolean;
+  singleEra?: boolean;
 }
 
 const PLACEHOLDER_CID = "bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i";
@@ -26,6 +29,8 @@ export function ipfsToHttp(cid: string, gatewayIndex = 0): string {
   return `${GATEWAYS[gatewayIndex % GATEWAYS.length]}${cid}`;
 }
 
+export type Rarity = "rare" | "legendary" | "epic";
+
 export interface Legendary {
   id: number;
   name: string;
@@ -38,9 +43,37 @@ export interface Legendary {
   quote: string;
   group: string;
   fate: string;
+  rarity: Rarity;
 }
 
-export type CraftFunctionName = "craft" | "craftDoKwon" | "craftSuZhu";
+export type CraftFunctionName =
+  | "craft"
+  | "craftDoKwon"
+  | "craftSuZhu"
+  | "craftHowells"
+  | "craftThomas"
+  | "craftSatoshi"
+  | "craftCotten"
+  | "craftLazarus"
+  | "craftPizzaDay";
+
+export interface PizzaDayEvent {
+  id: number;
+  name: string;
+  date: string;
+  epitaph: string;
+  description: string;
+  fate: string;
+}
+
+export const PIZZA_DAY_EVENT: PizzaDayEvent = {
+  id: 33,
+  name: "Bitcoin Pizza Day",
+  date: "May 22, 2010",
+  epitaph: "10,000 BTC. Two pizzas. $1 billion in regrets — not his.",
+  description: "On May 22, 2010, Laszlo Hanyecz paid 10,000 BTC for two large Papa John's pizzas — the first documented real-world purchase using Bitcoin. At the time, worth ~$41. At Bitcoin's 2026 price, the same coins exceed $1 billion.",
+  fate: "By various accounts, Hanyecz spent approximately 100,000 BTC in total on food and other needs while Bitcoin was nearly worthless. He developed the first Bitcoin client for macOS and pioneered GPU mining. In numerous interviews, Laszlo has stated he has no regrets: for him it was an experiment that proved Bitcoin worked as money. 'Someone had to start.'",
+};
 
 export interface Recipe {
   tombstones: number[];
@@ -154,71 +187,126 @@ export const TOMBSTONES: Tombstone[] = [
   { id: 19, name: "Three Arrows Capital", born: 2012, died: 2022, cause_of_death: "Hubris",        epitaph: "Supercycle believers. Supercycle victims.",        amount_lost: "$3,500,000,000",  group: "3AC",       villain: "Su Zhu" },
   { id: 20, name: "Starry Night Capital", born: 2021, died: 2022, cause_of_death: "Hubris",        epitaph: "$100M NFT fund. Stars aligned — for liquidation.", amount_lost: "$100,000,000",    group: "3AC",       villain: "Su Zhu" },
   { id: 21, name: "GBTC Trade",           born: 2020, died: 2022, cause_of_death: "Hubris",        epitaph: "The discount that discounted their existence.",    amount_lost: "$1,200,000,000",  group: "3AC",       villain: "Su Zhu",  founder: "Barry Silbert" },
+  // Group 8 — Crypt of Forgotten Keys
+  { id: 22, name: "James Howells' Hard Drive", born: 2009, died: 2013, cause_of_death: "Lost", epitaph: "8,000 BTC. One wrong bin bag. Twelve years of council meetings.", amount_lost: "$800,000,000",    group: "Forgotten Keys", villain: "", founder: "James Howells",  hideEra: true },
+  { id: 23, name: "Stefan Thomas's IronKey",   born: 2011, died: 2011, cause_of_death: "Lost", epitaph: "7,002 BTC. Eight attempts down. Two tries left. No room for error.", amount_lost: "$700,000,000",    group: "Forgotten Keys", villain: "", founder: "Stefan Thomas", hideEra: true },
+  { id: 24, name: "Satoshi's Ghost Million",   born: 2009, died: 2011, cause_of_death: "Lost", epitaph: "Mined it. Vanished. Left $100 billion untouched — on principle, or by accident.", amount_lost: "$109,000,000,000", amount_label: "Unmoved", group: "Forgotten Keys", villain: "", founder: "Satoshi Nakamoto", hideEra: true },
+  { id: 25, name: "QuadrigaCX",               born: 2013, died: 2019, cause_of_death: "Lost", epitaph: "Dead men tell no passwords.",                          amount_lost: "$250,000,000",    group: "Forgotten Keys", villain: "Gerald Cotten", hideEra: true },
+  // Group 9 — Lazarus Group
+  { id: 26, name: "Coincheck",              born: 2014, died: 2018, cause_of_death: "Hack", epitaph: "500 million NEM. No multisig. No mercy.",                                   amount_lost: "$534,000,000",    group: "Lazarus", villain: "Lazarus Group", singleEra: true },
+  { id: 27, name: "Ronin Network",          born: 2021, died: 2022, cause_of_death: "Hack", epitaph: "5 of 9 validators. One fake job offer. $625 million gone.",                 amount_lost: "$625,000,000",    group: "Lazarus", villain: "Lazarus Group", singleEra: true },
+  { id: 28, name: "Atomic Wallet & CoinEx", born: 2017, died: 2023, cause_of_death: "Hack", epitaph: "Two platforms. One summer. $170 million drained.",                          amount_lost: "$170,000,000",    group: "Lazarus", villain: "Lazarus Group", singleEra: true },
+  { id: 29, name: "DMM Bitcoin",            born: 2018, died: 2024, cause_of_death: "Hack", epitaph: "4,502 BTC. One social engineering call. One exchange closed forever.",      amount_lost: "$308,000,000",    group: "Lazarus", villain: "Lazarus Group", singleEra: true },
+  { id: 30, name: "Bybit",                  born: 2018, died: 2025, cause_of_death: "Hack", epitaph: "The largest crypto theft in history. A cold wallet. February 2025.",        amount_lost: "$1,500,000,000",  group: "Lazarus", villain: "Lazarus Group", singleEra: true },
+  { id: 31, name: "Drift Protocol",         born: 2021, died: 2026, cause_of_death: "Hack", epitaph: "Months of preparation. April Fools' Day. $285 million.",                   amount_lost: "$285,000,000",    group: "Lazarus", villain: "Lazarus Group", singleEra: true },
+  { id: 32, name: "Kelp DAO",              born: 2023, died: 2026, cause_of_death: "Hack", epitaph: "They didn't break the bridge. They printed fake tokens instead.",            amount_lost: "$292,000,000",    group: "Lazarus", villain: "Lazarus Group", singleEra: true },
 ];
 
 export const LEGENDARIES: Legendary[] = [
   {
-    id: 101, name: "Sam Bankman-Fried", alias: "SBF", group: "FTX",
+    id: 101, name: "Sam Bankman-Fried", alias: "SBF", group: "FTX", rarity: "epic",
     crime: "Fraud & Mismanagement", sentence: "25 years", status: "Convicted",
     total_damage: "$32,000,000,000", victims: "1,000,000+",
     quote: "I didn't knowingly commit fraud. I think.",
     fate: "Convicted in November 2023 on all 7 counts. Sentenced to 25 years in March 2024 — one of the longest sentences in US financial crime history. Currently serving time in a federal prison.",
   },
   {
-    id: 102, name: "Do Kwon", alias: "Lunatic", group: "Terra",
+    id: 102, name: "Do Kwon", alias: "Lunatic", group: "Terra", rarity: "legendary",
     crime: "Fraud & Securities Violations", sentence: "Pending", status: "Arrested in Montenegro",
     total_damage: "$45,000,000,000", victims: "500,000+",
     quote: "I don't debate poor people.",
     fate: "Arrested in Montenegro in March 2023 with forged documents while attempting to flee. Extradited to the US in December 2024. Awaiting trial on 8 counts including fraud and market manipulation.",
   },
   {
-    id: 103, name: "Mark Karpeles", alias: "MagicalTux", group: "Mt. Gox",
+    id: 103, name: "Mark Karpeles", alias: "MagicalTux", group: "Mt. Gox", rarity: "legendary",
     crime: "Embezzlement", sentence: "2.5 years suspended", status: "Convicted (Japan)",
     total_damage: "$473,000,000", victims: "850,000",
     quote: "I was busy coding.",
     fate: "Convicted in Japan in 2019: received a 2.5-year suspended sentence for data manipulation. Embezzlement charges were dropped. Continues to live in Japan, working on IT projects.",
   },
   {
-    id: 104, name: "Carlos Matos", alias: "BitConnect Guy", group: "BitConnect",
+    id: 104, name: "Carlos Matos", alias: "BitConnect Guy", group: "BitConnect", rarity: "legendary",
     crime: "Promoting Securities Fraud", sentence: "Not yet sentenced", status: "Charged",
     total_damage: "$2,400,000,000", victims: "300,000+",
     quote: "WHATS UP BITCONNEEEEECT.",
     fate: "Charged in the US in 2022 with securities fraud. Returned to his home country of Brazil, sentencing pending. Became an internet meme thanks to his infamous BitConnect conference speech.",
   },
   {
-    id: 105, name: "Ruja Ignatova", alias: "Cryptoqueen", group: "OneCoin",
+    id: 105, name: "Ruja Ignatova", alias: "Cryptoqueen", group: "OneCoin", rarity: "epic",
     crime: "Wire Fraud & Money Laundering", sentence: "Fugitive (FBI Top 10)", status: "At Large",
     total_damage: "$25,000,000,000", victims: "3,000,000+",
     quote: "OneCoin will replace Bitcoin.",
     fate: "Disappeared in October 2017 ahead of a planned arrest. Listed among the FBI's 10 Most Wanted Fugitives. Believed to be hiding with the support of organized crime. Whereabouts remain unknown to this day.",
   },
   {
-    id: 106, name: "Alex Mashinsky", alias: "The Unbanker", group: "Celsius",
+    id: 106, name: "Alex Mashinsky", alias: "The Unbanker", group: "Celsius", rarity: "legendary",
     crime: "Fraud & Market Manipulation", sentence: "Pending trial", status: "Charged",
     total_damage: "$4,700,000,000", victims: "600,000+",
     quote: "Banks are not your friends. I am.",
     fate: "Arrested in July 2023 on 7 charges including securities fraud and manipulation of the CEL token. Pleaded guilty to two counts in December 2024. Sentencing expected in 2025.",
   },
   {
-    id: 107, name: "Su Zhu", alias: "Supercycle Su", group: "3AC",
+    id: 107, name: "Su Zhu", alias: "Supercycle Su", group: "3AC", rarity: "legendary",
     crime: "Contempt of Court & Fraud", sentence: "4 months (Singapore)", status: "Convicted",
     total_damage: "$3,500,000,000", victims: "100,000+",
     quote: "We are in a supercycle.",
     fate: "Detained at Singapore's airport in September 2023 while attempting to leave the country. Sentenced to 4 months in November 2023 for contempt of court during 3AC's liquidation proceedings. Released in 2024.",
   },
   {
-    id: 109, name: "Satish Kumbhani", alias: "BitConnect Boss", group: "BitConnect",
+    id: 108, name: "Alexander Vinnik", alias: "BTC-e Baron", group: "BTC-e", rarity: "epic",
+    crime: "Money Laundering", sentence: "5 years (France)", status: "Convicted",
+    total_damage: "$4,000,000,000", victims: "Mt. Gox creditors",
+    quote: "I had no idea what my clients were doing.",
+    fate: "Arrested in Greece in 2017 while trying to enjoy a holiday — Interpol was waiting. After years of extradition disputes between the US, France, and Russia, he was sent to France. Convicted in 2023 to 5 years for laundering $4 billion. Exchanged for a Russian national in 2024.",
+  },
+  {
+    id: 109, name: "Satish Kumbhani", alias: "BitConnect Boss", group: "BitConnect", rarity: "epic",
     crime: "Securities & Commodities Fraud", sentence: "Fugitive", status: "At Large",
     total_damage: "$2,400,000,000", victims: "300,000+",
     quote: "BitConnect is the future of decentralized lending.",
     fate: "Charged in the US in 2022 on 7 fraud counts. Disappeared before arrest — believed to be hiding in India. Whereabouts unknown; the FBI has issued a wanted notice. The only major crypto fraudster to have evaded extradition.",
   },
   {
-    id: 108, name: "Alexander Vinnik", alias: "BTC-e Baron", group: "BTC-e",
-    crime: "Money Laundering", sentence: "5 years (France)", status: "Convicted",
-    total_damage: "$4,000,000,000", victims: "Mt. Gox creditors",
-    quote: "I had no idea what my clients were doing.",
-    fate: "Arrested in Greece in 2017 while trying to enjoy a holiday — Interpol was waiting. After years of extradition disputes between the US, France, and Russia, he was sent to France. Convicted in 2023 to 5 years for laundering $4 billion. Exchanged for a Russian national in 2024.",
+    id: 110, name: "Lazarus Group", alias: "Labyrinth Chollima", group: "Lazarus", rarity: "epic",
+    crime: "State-Sponsored Cybercrime", sentence: "Above the Law", status: "Untouchable",
+    total_damage: "$3,500,000,000+", victims: "Millions worldwide",
+    quote: "We are not criminals. We are the state.",
+    fate: "Lazarus Group is a cyber unit operated by North Korea's Reconnaissance General Bureau. Unlike typical hackers, they don't steal for personal gain — they steal to fund a nuclear weapons program. Hundreds of millions in stolen crypto have been traced directly to missile development. The US, South Korea, and the EU have issued indictments and sanctions. Arrest is structurally impossible: the entire nation is the suspect. The group has never stopped operating.",
+  },
+  {
+    id: 111, name: "James Howells", alias: "The Landfill Man", group: "Forgotten Keys", rarity: "legendary",
+    crime: "Lost Access", sentence: "Self-inflicted", status: "Still searching",
+    total_damage: "$800,000,000", victims: "Himself",
+    quote: "It's in there somewhere. I know it.",
+    fate: "In August 2025, Howells announced he was ending his twelve-year effort to physically recover the drive. The Bitcoin — buried under tonnes of waste at Newport landfill — will most likely stay there forever.",
+  },
+  {
+    id: 112, name: "Stefan Thomas", alias: "Two Tries Left", group: "Forgotten Keys", rarity: "legendary",
+    crime: "Lost Access", sentence: "Self-inflicted", status: "Waiting",
+    total_damage: "$700,000,000", victims: "Himself",
+    quote: "I have two tries left. I'm not going to waste them.",
+    fate: "Thomas placed the drive in a secure, undisclosed location — reportedly a Swiss vault — and is waiting for more reliable decryption methods. Quantum computing remains his last theoretical hope.",
+  },
+  {
+    id: 114, name: "Gerald Cotten", alias: "Dead Man's Password", group: "Forgotten Keys", rarity: "legendary",
+    crime: "Fraud & Embezzlement", sentence: "Deceased (officially)", status: "Unknown",
+    total_damage: "$250,000,000", victims: "76,000+",
+    quote: "I'm the only one who knows the password.",
+    fate: "Cotten died in India in December 2018, aged 30 — supposedly from Crohn's disease. He took the passwords to QuadrigaCX's cold wallets with him. Investigations later revealed the exchange was a Ponzi scheme: Cotten had created fake accounts, traded nonexistent assets, and spent customer funds on personal luxury. Most wallets were already empty before his death. Whether Cotten is truly dead remains disputed.",
+  },
+  {
+    id: 115, name: "Laszlo Hanyecz", alias: "Pizza Man", group: "Bitcoin Pizza Day", rarity: "epic",
+    crime: "Spent 10,000 BTC on pizza", sentence: "None", status: "No regrets",
+    total_damage: "10,000 BTC (~$1B)", victims: "Himself",
+    quote: "Someone had to start.",
+    fate: "By various accounts, Hanyecz spent approximately 100,000 BTC in total on food and other needs while Bitcoin was nearly worthless. He developed the first Bitcoin client for macOS and pioneered GPU mining — discovering that graphics cards mine coins far faster than standard processors. In numerous interviews, Laszlo has stated he has no regrets: for him it was an experiment that proved Bitcoin's viability as a means of payment. 'Someone had to start.'",
+  },
+  {
+    id: 113, name: "Satoshi Nakamoto", alias: "The Ghost", group: "Forgotten Keys", rarity: "legendary",
+    crime: "Voluntary Disappearance", sentence: "Unknown", status: "Unknown",
+    total_damage: "$109,000,000,000", victims: "None — or everyone",
+    quote: "I've moved on to other things.",
+    fate: "The true identity of Satoshi Nakamoto remains unknown. Recent investigations named cryptographer Adam Back (New York Times) and developer Peter Todd (HBO), both of whom deny involvement. That Satoshi has never touched the fortune is seen by many as proof of ideological purity — or simply that the keys are long gone.",
   },
 ];
 
@@ -226,8 +314,15 @@ export const RECIPES: Recipe[] = [
   // FTX (1,2,3), Mt.Gox/BTC-e (7,8,9), BitConnect (10,11,12) handled by their own craft sections
   // OneCoin (13,14,15→205-208→105) handled by OneCoinCraftSection
   // Celsius (#16→106) handled by CelsiusCraftSection (1:1 exchange)
-  { tombstones: [4, 5, 6, 18],    legendary: 102, group: "Terra", craftFn: "craftDoKwon" },
-  { tombstones: [17, 19, 20, 21], legendary: 107, group: "3AC",   craftFn: "craftSuZhu"  },
+  { tombstones: [4, 5, 6, 18],                         legendary: 102, group: "Terra",          craftFn: "craftDoKwon"  },
+  { tombstones: [17, 19, 20, 21],                      legendary: 107, group: "3AC",             craftFn: "craftSuZhu"   },
+  // Forgotten Keys (1:1 exchange, like Celsius)
+  { tombstones: [22], legendary: 111, group: "Forgotten Keys", craftFn: "craftHowells"  },
+  { tombstones: [23], legendary: 112, group: "Forgotten Keys", craftFn: "craftThomas"   },
+  { tombstones: [24], legendary: 113, group: "Forgotten Keys", craftFn: "craftSatoshi"  },
+  { tombstones: [25], legendary: 114, group: "Forgotten Keys", craftFn: "craftCotten"   },
+  // Lazarus (7-witness → Epic 110)
+  { tombstones: [26, 27, 28, 29, 30, 31, 32],          legendary: 110, group: "Lazarus",         craftFn: "craftLazarus" },
 ];
 
 export const TOMBSTONE_DESCRIPTIONS: Record<number, string> = {
@@ -252,6 +347,17 @@ export const TOMBSTONE_DESCRIPTIONS: Record<number, string> = {
   19: "Once the most prestigious hedge fund in crypto. 3AC borrowed across the entire industry and placed massive leveraged bets on everything from LUNA to GBTC. When the market turned, they couldn't cover their positions. A $3.5 billion default triggered a chain reaction of bankruptcies across the industry.",
   20: "3AC's NFT fund, created to build an institutional digital art collection. It raised $100 million and went on a shopping spree at peak NFT valuations. When 3AC collapsed, the entire collection was liquidated for a fraction of what was paid.",
   21: "Three Arrows exploited the arbitrage between GBTC shares and Bitcoin, accumulating a massive position. When the expected GBTC discount never closed and BTC crashed, the position turned catastrophic. A trade meant to be risk-free became one of 3AC's largest losses.",
+  22: "In 2009, British IT engineer James Howells mined 8,000 Bitcoin and stored the wallet on a hard drive. In 2013, during a house cleanup, the drive was accidentally thrown away and ended up in a Newport landfill. For over twelve years, Howells petitioned the city council for permission to excavate — offering 25% of any recovered funds. The council repeatedly refused, citing environmental regulations. In early 2025, a court ruled definitively that he had no legal right to retrieve the drive.",
+  23: "Stefan Thomas received 7,002 Bitcoin in 2011 as payment for producing an educational video, 'What is Bitcoin?'. He wrote the wallet password on a piece of paper — then lost it. After eight failed attempts, he stopped: the IronKey hardware wallet permanently erases all data after ten wrong entries. In 2023–2025, cybersecurity firm Unciphered claimed to have found a way to crack the same IronKey model. Thomas declined, citing legal complications and privacy concerns.",
+  24: "Approximately 1.1 million Bitcoin — mined between 2009 and 2010 — sit untouched across more than 21,900 addresses linked to Satoshi Nakamoto by the Patoshi Pattern, a fingerprint of the early mining algorithm. According to Arkham Intelligence, this makes Satoshi one of the wealthiest individuals alive — roughly top 15 on the Forbes scale — holding ~5.5% of Bitcoin's total supply. Any movement on a Satoshi-era address instantly shakes global markets. No one knows if the keys still exist, or if they were deliberately destroyed.",
+  25: "Gerald Cotten founded QuadrigaCX, Canada's largest crypto exchange. When he died in India in December 2018 — aged 30, reportedly from Crohn's disease — he took the passwords to the cold wallets with him. His widow said she could not access his encrypted laptop. The Ontario Securities Commission later concluded QuadrigaCX was a Ponzi scheme: Cotten had created fake accounts, traded nonexistent assets, and spent customer funds on personal expenses and failed trades. Ernst & Young auditors found that most exchange wallets were already empty long before his death. Co-founder Michael Patryn was revealed to have a prior fraud conviction under the name Omar Dhanani.",
+  26: "In January 2018, Japanese exchange Coincheck lost approximately 500 million NEM tokens — worth $534 million at the time — after hackers accessed its hot wallets through phishing and malware. Funds were stored without multisignature protection, making the withdrawal trivially easy. The exchange compensated around 260,000 affected users from its own reserves. The incident prompted Japan to overhaul crypto regulation and establish the JVCEA industry association. The attackers have never been arrested.",
+  27: "In March 2022, the Ronin Network — backbone of Axie Infinity — was drained of 173,600 ETH and 25.5 million USDC. Attackers gained control of 5 of 9 validator nodes after sending a Sky Mavis employee a malware-laced PDF disguised as a job offer. The US government attributed the attack to North Korea's Lazarus Group. The network was halted; the validator set was later expanded to prevent a repeat. One of the largest crypto thefts in history.",
+  28: "In June 2023, Lazarus Group compromised Atomic Wallet — over 5,500 wallets across Bitcoin, Ethereum, and Tron — with losses confirmed at over $100 million, far beyond the initial $35 million estimate. In September 2023, CoinEx lost $70 million after hackers reused infrastructure already linked to Atomic. Together with simultaneous hits on Alphapo ($60M), Stake.com ($41M), and CoinsPaid ($37M), the group stole $240–300 million in a single quarter.",
+  29: "In May 2024, Japanese exchange DMM Bitcoin lost 4,502.9 BTC — approximately $308 million — in an unauthorized transfer attributed to Lazarus Group (also known as TraderTraitor) by the FBI and Japanese authorities. Attackers used social engineering and malware to compromise staff. The company raised $320 million in emergency funding to cover user losses, but announced the exchange's permanent closure in December 2024. The hack directly killed the business.",
+  30: "On February 21, 2025, Bybit confirmed the theft of approximately $1.5 billion from a cold wallet — the largest single crypto heist ever recorded, nearly matching the entire industry's losses for all of 2024. Attackers combined software vulnerabilities in internal transaction software with phishing and malware to compromise signing workflows. Within 48 hours, $160 million was laundered through mixers; by March 2025, over $300 million had been cashed out. North Korean state-sponsored hackers were identified as responsible.",
+  31: "On April 1, 2026, Solana-based perpetuals protocol Drift was drained of approximately $285 million. Attackers spent months infiltrating the Drift Council through social engineering before executing the theft — primarily from the JLP Delta Neutral strategy. Elliptic attributed the attack to North Korean hackers. Drift suspended all operations immediately; Tether intervened to help stabilize the protocol. The attack triggered a chain reaction across Solana's DeFi ecosystem.",
+  32: "On April 19, 2026, Kelp DAO's rsETH bridge was exploited for $292 million. Rather than attacking the protocol directly, hackers compromised the RPC infrastructure of LayerZero's decentralized verifier network — minting fraudulent rsETH tokens. LayerZero acknowledged the security misconfiguration. Panic spread across DeFi: investors withdrew over $8.6 billion from Aave in two days fearing contagion. Kelp DAO subsequently migrated its bridge to Chainlink; Solv Protocol withdrew $700 million from LayerZero.",
 };
 
 export const CAUSE_COLORS: Record<CauseOfDeath, string> = {
@@ -260,4 +366,5 @@ export const CAUSE_COLORS: Record<CauseOfDeath, string> = {
   "Rug Pull":    "bg-purple-900 text-purple-300 border-purple-700",
   Mismanagement: "bg-yellow-900 text-yellow-300 border-yellow-700",
   Hubris:        "bg-blue-900 text-blue-300 border-blue-700",
+  Lost:          "bg-slate-800 text-slate-300 border-slate-600",
 };

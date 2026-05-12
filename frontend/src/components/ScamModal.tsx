@@ -33,55 +33,48 @@ export function ScamModal({ tombstone, onClose }: Props) {
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 md:p-8"
+      className="fixed inset-0 z-50 flex items-center justify-center"
       onClick={onClose}
     >
       {/* backdrop */}
-      <div className="absolute inset-0 bg-navy/95 backdrop-blur-md" />
+      <div className="absolute inset-0 bg-black/90 backdrop-blur-md" />
 
-      {/* panel */}
+      {/* close button */}
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 z-20 bg-navy/80 backdrop-blur-sm px-3 py-2 font-mono text-[11px] text-muted hover:text-text border border-border transition-colors"
+      >
+        ESC
+      </button>
+
+      {/* panel — image left, info right */}
       <div
-        className="modal-enter relative w-full max-w-5xl bg-panel border border-border/60 clip-cut overflow-hidden flex flex-col md:flex-row"
-        style={{ maxHeight: "92vh" }}
+        className="modal-enter relative w-full h-full md:h-auto md:max-h-[96vh] md:max-w-6xl flex flex-col md:flex-row"
         onClick={(e) => e.stopPropagation()}
       >
 
-        {/* ── Left: large image ── */}
-        <div className="relative md:w-[55%] md:flex-shrink-0 h-64 sm:h-80 md:h-auto bg-navy overflow-hidden">
+        {/* ── Image — dominant, full height ── */}
+        <div className="relative flex-1 md:flex-none md:w-[68%] h-[55vh] md:h-auto bg-black overflow-hidden md:clip-cut">
           <img
             src={`/nft/${tombstone.id}.jpg`}
             alt={tombstone.name}
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-contain"
             onError={(e) => { (e.target as HTMLImageElement).src = "/nft/placeholder.png"; }}
           />
 
-          {/* right-edge fade into panel on desktop */}
-          <div className="hidden md:block absolute inset-y-0 right-0 w-10 bg-gradient-to-r from-transparent to-panel/80" />
-          {/* bottom-edge fade on mobile */}
-          <div className="md:hidden absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-panel to-transparent" />
-
           {/* ID badge */}
-          <div className="absolute top-0 left-0 bg-navy/80 backdrop-blur-sm px-2.5 py-1.5 font-mono text-[10px] text-muted tracking-widest border-r border-b border-border">
+          <div className="absolute top-0 left-0 bg-black/70 backdrop-blur-sm px-2.5 py-1.5 font-mono text-[10px] text-muted tracking-widest border-r border-b border-border/40">
             #{String(tombstone.id).padStart(2, "0")}
           </div>
         </div>
 
-        {/* ── Right: details ── */}
-        <div className="flex-1 overflow-y-auto flex flex-col min-h-0">
-
-          {/* close */}
-          <button
-            onClick={onClose}
-            className="absolute top-0 right-0 bg-navy/80 backdrop-blur-sm px-3 py-2 font-mono text-[11px] text-muted hover:text-text border-l border-b border-border transition-colors z-10"
-          >
-            ESC
-          </button>
-
-          <div className="p-5 md:p-7 pt-10 md:pt-7 flex flex-col gap-4 flex-1">
+        {/* ── Info panel ── */}
+        <div className="md:w-[32%] flex-shrink-0 bg-panel border-t md:border-t-0 md:border-l border-border/50 overflow-y-auto flex flex-col">
+          <div className="p-5 md:p-6 flex flex-col gap-4 flex-1">
 
             {/* title */}
-            <div className="flex items-start gap-3 pr-12 md:pr-0">
-              <h2 className="font-sans font-bold text-xl text-text leading-tight flex-1">
+            <div className="flex items-start gap-3 pr-10 md:pr-0">
+              <h2 className="font-sans font-bold text-lg text-text leading-tight flex-1">
                 {tombstone.name}
               </h2>
               <span className={`font-mono text-[8px] px-1.5 py-0.5 border tracking-wider shrink-0 uppercase ${causeClass}`}>

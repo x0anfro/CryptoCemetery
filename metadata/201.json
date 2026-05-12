@@ -1,0 +1,28 @@
+{
+  "name": "Caroline Ellison",
+  "description": "RARE — Caroline Ellison, CEO, Alameda Research. A witness in the FTX saga. Sentenced to 2 years (Sep 2024) for cooperating with prosecutors against SBF.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/201.jpg",
+  "external_url": "https://cryptometery.xyz/witness/201",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Witness"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Group",
+      "value": "FTX"
+    },
+    {
+      "trait_type": "Role",
+      "value": "CEO, Alameda Research"
+    },
+    {
+      "trait_type": "Fate",
+      "value": "Sentenced to 2 years (Sep 2024) for cooperating with prosecutors against SBF."
+    }
+  ]
+}

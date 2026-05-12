@@ -14,7 +14,7 @@ interface Particle {
   wobblePhase: number;
   wobbleSpeed: number;
   wobbleAmp: number;
-  type: "bill" | "coin";
+  type: "bill" | "coin" | "eth_coin";
   hue: number;
 }
 
@@ -35,7 +35,9 @@ const BILL_PALETTES = [
 ];
 
 function makeBill(canvasW: number): Particle {
-  const isCoin = Math.random() < 0.18;
+  const rand = Math.random();
+  const type: Particle["type"] = rand < 0.12 ? "coin" : rand < 0.22 ? "eth_coin" : "bill";
+  const isCoin = type === "coin" || type === "eth_coin";
   const w = isCoin ? 14 + Math.random() * 8 : 30 + Math.random() * 24;
   const h = isCoin ? w : w * 0.44;
   return {
@@ -49,7 +51,7 @@ function makeBill(canvasW: number): Particle {
     wobblePhase: Math.random() * Math.PI * 2,
     wobbleSpeed: 0.008 + Math.random() * 0.012,
     wobbleAmp: 0.3 + Math.random() * 0.5,
-    type: isCoin ? "coin" : "bill",
+    type,
     hue: Math.floor(Math.random() * BILL_PALETTES.length),
   };
 }
@@ -86,6 +88,45 @@ function drawParticle(ctx: CanvasRenderingContext2D, p: Particle, t: number) {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText("₿", 0, 0.5);
+  } else if (p.type === "eth_coin") {
+    const r = p.w / 2;
+    ctx.beginPath();
+    ctx.arc(0, 0, r, 0, Math.PI * 2);
+    ctx.fillStyle = "#2a2a4a";
+    ctx.fill();
+    const grad = ctx.createRadialGradient(-r * 0.3, -r * 0.3, 0, 0, 0, r);
+    grad.addColorStop(0, "#9090cc55");
+    grad.addColorStop(1, "#00000000");
+    ctx.fillStyle = grad;
+    ctx.fill();
+    ctx.strokeStyle = "#7070aa";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(0, 0, r, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(0, 0, r * 0.78, 0, Math.PI * 2);
+    ctx.strokeStyle = "#9090cc55";
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+    // Draw Ethereum diamond
+    const s = r * 0.52;
+    ctx.fillStyle = "#a0a0ddcc";
+    ctx.beginPath();
+    ctx.moveTo(0, -s * 1.3);
+    ctx.lineTo(s, -s * 0.1);
+    ctx.lineTo(0, s * 0.4);
+    ctx.lineTo(-s, -s * 0.1);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = "#c0c0ffaa";
+    ctx.beginPath();
+    ctx.moveTo(0, s * 0.4);
+    ctx.lineTo(s, -s * 0.1);
+    ctx.lineTo(0, s * 1.3);
+    ctx.lineTo(-s, -s * 0.1);
+    ctx.closePath();
+    ctx.fill();
   } else {
     const pal = BILL_PALETTES[p.hue];
     const hw = p.w / 2, hh = p.h / 2;
@@ -106,7 +147,7 @@ function drawParticle(ctx: CanvasRenderingContext2D, p: Particle, t: number) {
     ctx.font = `bold ${p.h * 0.48}px monospace`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText("100", 0, 0.5);
+    ctx.fillText("UST", 0, 0.5);
     ctx.strokeStyle = pal.stroke + "80";
     ctx.lineWidth = 0.3;
     [-hh * 0.45, hh * 0.45].forEach((y) => {
@@ -121,7 +162,7 @@ function drawParticle(ctx: CanvasRenderingContext2D, p: Particle, t: number) {
 }
 
 function spawnDust(dust: Dust[], p: Particle) {
-  const color = p.type === "coin" ? "#f5a623" : BILL_PALETTES[p.hue].text;
+  const color = p.type === "coin" ? "#f5a623" : p.type === "eth_coin" ? "#9090ff" : BILL_PALETTES[p.hue].text;
   const count = 12 + Math.floor(Math.random() * 6);
   for (let i = 0; i < count; i++) {
     const angle = (i / count) * Math.PI * 2 + Math.random() * 0.5;

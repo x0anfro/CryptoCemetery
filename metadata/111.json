@@ -1,0 +1,48 @@
+{
+  "name": "James Howells",
+  "description": "LEGENDARY — James Howells (aka \"The Landfill Man\"). In August 2025, Howells announced he was ending his twelve-year effort to physically recover the drive. The Bitcoin — buried under tonnes of waste at Newport landfill — will most likely stay there forever.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/111.jpg",
+  "external_url": "https://cryptometery.xyz/legendary/111",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Legendary Villain Portrait"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Group",
+      "value": "Forgotten Keys"
+    },
+    {
+      "trait_type": "Alias",
+      "value": "The Landfill Man"
+    },
+    {
+      "trait_type": "Crime",
+      "value": "Lost Access"
+    },
+    {
+      "trait_type": "Sentence",
+      "value": "Self-inflicted"
+    },
+    {
+      "trait_type": "Status",
+      "value": "Search Abandoned"
+    },
+    {
+      "trait_type": "Total Damage",
+      "value": "$800,000,000"
+    },
+    {
+      "trait_type": "Victims",
+      "value": "Himself"
+    },
+    {
+      "trait_type": "Famous Quote",
+      "value": "It's in there somewhere. I know it."
+    }
+  ]
+}

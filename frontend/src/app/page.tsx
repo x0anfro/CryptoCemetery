@@ -1,24 +1,47 @@
 "use client";
 
+import { useState } from "react";
 import { useAccount, useReadContracts } from "wagmi";
 import { ScrollRevealGroup } from "@/components/ScrollRevealGroup";
 import { LetterformTitle } from "@/components/LetterformTitle";
 import { TOMBSTONES } from "@/lib/data";
 import { ABI, CONTRACT_ADDRESS } from "@/lib/contract";
+import { PizzaDayMintBlock } from "@/components/PizzaDayMintBlock";
 
-const GROUPS = [
-  { label: "FTX",         villain: "Sam Bankman-Fried",  ids: [1,  2,  3]       },
-  { label: "Terra",       villain: "Do Kwon",             ids: [4,  5,  6,  18]  },
-  { label: "3AC",         villain: "Su Zhu",              ids: [19, 17, 20, 21]  },
-  { label: "MT. GOX & BTC-e", villain: "Mark Karpeles",   ids: [7,  9,  8]       },
-  { label: "BitConnect",      villain: "Satish Kumbhani", ids: [10, 11, 12]      },
-  { label: "OneCoin",     villain: "Ruja Ignatova",       ids: [13, 14, 15]      },
-  { label: "Celsius",     villain: "Alex Mashinsky",      ids: [16]              },
+type GroupTheme = "default" | "forgotten" | "lazarus";
+
+const GROUPS: Array<{ label: string; villain: string; ids: number[]; theme?: GroupTheme }> = [
+  { label: "CRYPT OF FORGOTTEN KEYS", villain: "Lost to Time",        ids: [22, 23, 24, 25], theme: "forgotten" },
+  { label: "LAZARUS GROUP",           villain: "DPRK / Labyrinth Chollima", ids: [26, 27, 28, 29, 30, 31, 32], theme: "lazarus" },
+  { label: "FTX",                     villain: "Sam Bankman-Fried",   ids: [1,  2,  3]       },
+  { label: "Terra",                   villain: "Do Kwon",             ids: [4,  5,  6,  18]  },
+  { label: "3AC",                     villain: "Su Zhu",              ids: [19, 17, 20, 21]  },
+  { label: "MT. GOX & BTC-e",         villain: "Mark Karpeles",       ids: [7,  9,  8]       },
+  { label: "BitConnect",              villain: "Satish Kumbhani",     ids: [10, 11, 12]      },
+  { label: "OneCoin",                 villain: "Ruja Ignatova",       ids: [13, 14, 15]      },
+  { label: "Celsius",                 villain: "Alex Mashinsky",      ids: [16]              },
 ];
+
+const SECTION_STYLES: Record<GroupTheme, { wrapper: string; divider: string; label: string; sub: string }> = {
+  default:   { wrapper: "",                                                                                         divider: "poly-divider",       label: "text-accent",    sub: "text-muted"    },
+  forgotten: { wrapper: "pl-4 border-l-2 border-slate-700/50 bg-gradient-to-r from-slate-900/20 to-transparent",  divider: "poly-divider-fog",   label: "text-slate-400", sub: "text-slate-600" },
+  lazarus:   { wrapper: "pl-4 border-l-2 border-red-900/70   bg-gradient-to-r from-red-950/20   to-transparent",  divider: "poly-divider-blood", label: "text-red-400",   sub: "text-red-800"  },
+};
 
 
 export default function MintPage() {
   const { address } = useAccount();
+  const [collapsed, setCollapsed] = useState<Set<string>>(
+    new Set(["CRYPT OF FORGOTTEN KEYS", "LAZARUS GROUP"])
+  );
+
+  function toggle(label: string) {
+    setCollapsed(prev => {
+      const next = new Set(prev);
+      next.has(label) ? next.delete(label) : next.add(label);
+      return next;
+    });
+  }
 
   const balanceContracts = address
     ? TOMBSTONES.map((t) => ({
@@ -31,7 +54,7 @@ export default function MintPage() {
 
   const { data: balanceData } = useReadContracts({
     contracts: balanceContracts,
-    query: { enabled: !!address, refetchInterval: 15_000 },
+    query: { enabled: !!address, refetchInterval: 15_000, gcTime: 0 },
   });
 
   const balances: Record<number, number> = {};
@@ -70,19 +93,40 @@ export default function MintPage() {
       </div>
 
       {/* ── Groups ───────────────────────────────────────── */}
-      {GROUPS.map((group, gi) => {
+      {GROUPS.map((group) => {
         const stones = group.ids.map((id) => TOMBSTONES.find((t) => t.id === id)!);
+        const s = SECTION_STYLES[group.theme ?? "default"];
+        const isCollapsible = group.theme === "forgotten" || group.theme === "lazarus";
+        const isCollapsed = collapsed.has(group.label);
         return (
-          <section key={group.label} className="mb-16">
-            <div className="poly-divider mb-7">
-              <span className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase">{group.label}</span>
-              <span className="font-mono text-[10px] text-muted">·</span>
-              <span className="font-mono text-[10px] text-muted">{group.villain}</span>
+          <section key={group.label} className={`mb-16 ${s.wrapper}`}>
+            <div
+              className={`${s.divider} mb-7 ${isCollapsible ? "cursor-pointer select-none" : ""}`}
+              onClick={isCollapsible ? () => toggle(group.label) : undefined}
+            >
+              <span className={`font-mono text-[10px] tracking-[0.3em] uppercase ${s.label}`}>{group.label}</span>
+              <span className={`font-mono text-[10px] ${s.sub}`}>·</span>
+              <span className={`font-mono text-[10px] ${s.sub}`}>{group.villain}</span>
+              {isCollapsible && (
+                <svg
+                  viewBox="0 0 10 6"
+                  className={`w-2.5 h-2.5 shrink-0 transition-transform duration-300 ${s.label} ${isCollapsed ? "rotate-0" : "rotate-180"}`}
+                  fill="currentColor"
+                >
+                  <path d="M0 0 L5 6 L10 0Z" />
+                </svg>
+              )}
             </div>
-            <ScrollRevealGroup stones={stones} balances={balances} />
+            <div className={`grid transition-all duration-500 ease-in-out ${isCollapsed ? "grid-rows-[0fr]" : "grid-rows-[1fr]"}`}>
+              <div className="overflow-hidden min-h-0">
+                <ScrollRevealGroup stones={stones} balances={balances} />
+              </div>
+            </div>
           </section>
         );
       })}
+
+      <PizzaDayMintBlock />
     </div>
   );
 }

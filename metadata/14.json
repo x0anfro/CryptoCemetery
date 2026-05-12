@@ -1,8 +1,8 @@
 {
-  "name": "??? ✝ — Coming Soon",
-  "description": "This tombstone has not been revealed yet. A new wave is coming to Crypto Cemetery.",
-  "image": "ipfs://bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i",
-  "external_url": "https://crypto-cemetery.xyz/tombstone/14",
+  "name": "One Exchange ✝",
+  "description": "A tombstone commemorating the collapse of One Exchange (2015–2017). An exchange where only the exit was real. Part of the OneCoin set — collect the full set to craft the villain portrait.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/14.jpg",
+  "external_url": "https://cryptometery.xyz/tombstone/14",
   "attributes": [
     {
       "trait_type": "Type",
@@ -13,8 +13,24 @@
       "value": "Common"
     },
     {
-      "trait_type": "Status",
-      "value": "Unrevealed"
+      "trait_type": "Born",
+      "value": "2015"
+    },
+    {
+      "trait_type": "Died",
+      "value": "2017"
+    },
+    {
+      "trait_type": "Cause of Death",
+      "value": "Ponzi"
+    },
+    {
+      "trait_type": "Group",
+      "value": "OneCoin"
+    },
+    {
+      "trait_type": "Epitaph",
+      "value": "An exchange where only the exit was real."
     }
   ]
 }

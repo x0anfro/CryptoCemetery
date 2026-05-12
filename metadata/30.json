@@ -1,0 +1,40 @@
+{
+  "name": "Bybit ✝",
+  "description": "A tombstone commemorating the collapse of Bybit (2018–2025). The largest crypto theft in history. A cold wallet. February 2025. Part of the Lazarus set — collect the full set to craft the villain portrait.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/30.jpg",
+  "external_url": "https://cryptometery.xyz/tombstone/30",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Tombstone"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Born",
+      "value": "2018"
+    },
+    {
+      "trait_type": "Died",
+      "value": "2025"
+    },
+    {
+      "trait_type": "Cause of Death",
+      "value": "Hack"
+    },
+    {
+      "trait_type": "Amount Lost",
+      "value": "$1,500,000,000"
+    },
+    {
+      "trait_type": "Group",
+      "value": "Lazarus"
+    },
+    {
+      "trait_type": "Epitaph",
+      "value": "The largest crypto theft in history. A cold wallet. February 2025."
+    }
+  ]
+}

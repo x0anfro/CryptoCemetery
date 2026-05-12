@@ -3,6 +3,96 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useState, useEffect, useRef } from "react";
+
+const FAQ_ITEMS = [
+  {
+    q: "What is Crypto Cemetery?",
+    a: "NFT collection on Shape L2. Each tombstone marks a real crypto disaster — collapsed exchange, rug pull, or convicted fraudster. Burn tombstones to craft villain portraits.",
+  },
+  {
+    q: "How do I mint?",
+    a: "Connect wallet, pick a tombstone, pay 0.00042 ETH. ERC-1155 — you can hold multiple copies of the same token.",
+  },
+  {
+    q: "What is crafting?",
+    a: "Burn tombstones to mint a villain portrait. Some chains are multi-stage — you unlock intermediate characters first, then the final boss. Burned tokens are gone permanently.",
+  },
+  {
+    q: "What are the rarities?",
+    a: "Common tombstones → Rare witnesses (intermediate craft drops) → Legendary portraits → Epic portraits. Epics are sealed until crafted: you see a locked card until the moment you craft it — then the full reveal artwork appears.",
+  },
+  {
+    q: "What network & wallet?",
+    a: "Shape L2 (chain ID 360). Any EVM wallet — MetaMask, Rabby, Coinbase Wallet. Bridge ETH to Shape before minting.",
+  },
+];
+
+function FaqPanel() {
+  const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = useState<number | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [open]);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className={`clip-cut-sm font-mono text-[10px] tracking-widest uppercase px-4 py-2 border transition-all duration-200 ${
+          open
+            ? "border-accent/60 text-accent bg-accent/10"
+            : "border-border text-muted hover:border-accent/50 hover:text-accent"
+        }`}
+      >
+        FAQ
+      </button>
+
+      {open && (
+        <div className="absolute right-0 top-[calc(100%+8px)] w-[420px] bg-panel border border-accent/20 clip-cut shadow-[0_8px_32px_rgba(0,0,0,0.5)] z-50">
+          <div className="px-4 pt-4 pb-2 border-b border-border/50 flex items-center justify-between">
+            <span className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase">How it works</span>
+            <button onClick={() => setOpen(false)} className="font-mono text-[10px] text-muted hover:text-text transition-colors">ESC</button>
+          </div>
+          <div className="flex flex-col max-h-[70vh] overflow-y-auto">
+            {FAQ_ITEMS.map((item, i) => (
+              <div key={i} className="border-b border-border/40 last:border-b-0">
+                <button
+                  onClick={() => setExpanded(expanded === i ? null : i)}
+                  className="w-full flex items-start justify-between px-4 py-3 text-left group gap-3"
+                >
+                  <span className="font-mono text-[11px] tracking-wide text-text group-hover:text-accent transition-colors leading-snug">
+                    {item.q}
+                  </span>
+                  <svg
+                    viewBox="0 0 10 6"
+                    className={`w-2.5 h-2.5 shrink-0 mt-0.5 transition-transform duration-200 fill-current text-accent ${expanded === i ? "rotate-180" : "rotate-0"}`}
+                  >
+                    <path d="M0 0 L5 6 L10 0Z" />
+                  </svg>
+                </button>
+                <div className={`grid transition-all duration-300 ease-in-out ${expanded === i ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                  <div className="overflow-hidden min-h-0">
+                    <p className="px-4 pb-4 font-sans text-[12px] text-muted leading-relaxed">
+                      {item.a}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function WalletButton() {
   return (
@@ -96,7 +186,10 @@ export function Header() {
             </Link>
           </nav>
         </div>
-        <WalletButton />
+        <div className="flex items-center gap-2">
+          <FaqPanel />
+          <WalletButton />
+        </div>
       </div>
     </header>
   );

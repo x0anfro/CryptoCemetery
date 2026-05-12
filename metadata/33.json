@@ -1,0 +1,28 @@
+{
+  "name": "Bitcoin Pizza Day",
+  "description": "On May 22, 2010, Laszlo Hanyecz paid 10,000 BTC for two large Papa John's pizzas — the first documented real-world Bitcoin purchase. At the time, worth ~$41. At Bitcoin's 2026 price, the same coins exceed $1 billion. Collect 5 to craft Laszlo Hanyecz.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/33.jpg",
+  "external_url": "https://cryptometery.xyz",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Event"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Group",
+      "value": "Bitcoin Pizza Day"
+    },
+    {
+      "trait_type": "Date",
+      "value": "May 22, 2010"
+    },
+    {
+      "trait_type": "Epitaph",
+      "value": "10,000 BTC. Two pizzas. $1 billion in regrets — not his."
+    }
+  ]
+}

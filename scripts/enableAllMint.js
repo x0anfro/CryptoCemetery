@@ -1,6 +1,6 @@
 const { ethers } = require("hardhat");
 
-const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS || "0x1878B03e66CC8fA4E74Fc0768E82AcC2371cab71";
+const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS || "0x32a6Ec63F785bBE9169930FF234D5e4563B7caA5";
 
 const ABI = [
   "function setMintEnabled(uint256[] calldata tokenIds, bool enabled) external",
@@ -13,27 +13,28 @@ async function main() {
   const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
 
   const owner = await contract.owner();
-  console.log(`Signer : ${signer.address}`);
-  console.log(`Owner  : ${owner}`);
+  console.log(`Signer  : ${signer.address}`);
+  console.log(`Owner   : ${owner}`);
+  console.log(`Contract: ${CONTRACT_ADDRESS}`);
 
   if (signer.address.toLowerCase() !== owner.toLowerCase()) {
     throw new Error("You are not the owner of this contract");
   }
 
-  // Check current state
-  console.log("\nCurrent mintEnabled state:");
-  for (let i = 1; i <= 21; i++) {
-    const enabled = await contract.mintEnabled(i);
-    if (!enabled) process.stdout.write(`  #${i} disabled\n`);
-  }
-
-  // Enable all 21 tokens
-  const tokenIds = Array.from({ length: 21 }, (_, i) => i + 1);
-  console.log("\nEnabling tokens #1–#21...");
+  // Enable tombstones #1–#32 + Pizza Day event #33
+  const tokenIds = Array.from({ length: 33 }, (_, i) => i + 1);
+  console.log("\nEnabling tombstones #1–#32 + Pizza Day event #33...");
   const tx = await contract.setMintEnabled(tokenIds, true);
-  console.log(`Tx hash: ${tx.hash}`);
+  console.log(`Tx hash : ${tx.hash}`);
   await tx.wait();
-  console.log("✓ Done — all 21 tombstones are now mintable");
+
+  // Verify
+  console.log("\nVerifying...");
+  for (let i = 1; i <= 33; i++) {
+    const enabled = await contract.mintEnabled(i);
+    if (!enabled) console.log(`  ⚠ #${i} still disabled`);
+  }
+  console.log("✓ All tombstones (#1–#32) + Pizza Day (#33) are now mintable");
 }
 
 main().catch((err) => {

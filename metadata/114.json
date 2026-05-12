@@ -1,0 +1,48 @@
+{
+  "name": "Gerald Cotten",
+  "description": "LEGENDARY — Gerald Cotten (aka \"Dead Man's Password\"). Cotten died in India in December 2018, aged 30 — supposedly from Crohn's disease. He took the passwords to QuadrigaCX's cold wallets with him. Investigations later revealed the exchange was a Ponzi scheme: Cotten had created fake accounts, traded nonexistent assets, and spent customer funds on personal luxury. Whether Cotten is truly dead remains disputed.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/114.jpg",
+  "external_url": "https://cryptometery.xyz/legendary/114",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Legendary Villain Portrait"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Group",
+      "value": "Forgotten Keys"
+    },
+    {
+      "trait_type": "Alias",
+      "value": "Dead Man's Password"
+    },
+    {
+      "trait_type": "Crime",
+      "value": "Fraud & Embezzlement"
+    },
+    {
+      "trait_type": "Sentence",
+      "value": "Deceased (officially)"
+    },
+    {
+      "trait_type": "Status",
+      "value": "Unknown"
+    },
+    {
+      "trait_type": "Total Damage",
+      "value": "$250,000,000"
+    },
+    {
+      "trait_type": "Victims",
+      "value": "76,000+"
+    },
+    {
+      "trait_type": "Famous Quote",
+      "value": "I'm the only one who knows the password."
+    }
+  ]
+}

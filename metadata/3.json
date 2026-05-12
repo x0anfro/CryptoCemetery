@@ -1,8 +1,8 @@
 {
   "name": "BlockFi ✝",
-  "description": "A tombstone commemorating the death of BlockFi. Born: 2017. Died: 2022. Part of the FTX trifecta — collect all 3 to craft the Legendary villain card.",
-  "image": "ipfs://bafybeica5xxed3wgg6gfm3rdhxqa2yfk7ftrmzeb7etyghkgqjjs3turei",
-  "external_url": "https://crypto-cemetery.xyz/tombstone/3",
+  "description": "A tombstone commemorating the collapse of BlockFi (2017–2022). Collateral damage has never been so expensive. Part of the FTX set — collect the full set to craft the villain portrait.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/3.jpg",
+  "external_url": "https://cryptometery.xyz/tombstone/3",
   "attributes": [
     {
       "trait_type": "Type",
@@ -29,12 +29,8 @@
       "value": "$1,200,000,000"
     },
     {
-      "trait_type": "Villain Group",
+      "trait_type": "Group",
       "value": "FTX"
-    },
-    {
-      "trait_type": "Villain",
-      "value": "Sam Bankman-Fried"
     },
     {
       "trait_type": "Epitaph",

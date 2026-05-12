@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import { useState, useEffect } from "react";
+import { useAccount, useWriteContract, useWaitForTransactionReceipt, useReadContract } from "wagmi";
 import { ABI, CONTRACT_ADDRESS, CRAFT_PRICE } from "@/lib/contract";
 import { TOMBSTONES, LEGENDARIES } from "@/lib/data";
 import { LegendaryModal } from "@/components/LegendaryModal";
@@ -15,6 +15,7 @@ export function CelsiusCraftSection({ balances, mashinskyCrafted }: Props) {
   const [txHash, setTxHash] = useState<`0x${string}` | undefined>();
   const [modalOpen, setModalOpen] = useState(false);
 
+  const { address } = useAccount();
   const celsius   = TOMBSTONES.find((t) => t.id === 16)!;
   const mashinsky = LEGENDARIES.find((l) => l.id === 106)!;
 
@@ -25,6 +26,19 @@ export function CelsiusCraftSection({ balances, mashinskyCrafted }: Props) {
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash: txHash });
   const isBusy = isPending || isConfirming;
 
+  const { data: mashinskyBalance, refetch: refetchMashinsky } = useReadContract({
+    address: CONTRACT_ADDRESS, abi: ABI, functionName: "balanceOf",
+    args: [address ?? "0x0000000000000000000000000000000000000000", BigInt(106)],
+    query: { enabled: !!address, refetchInterval: 20_000 },
+  });
+  const hasMashinskyNFT = Number(mashinskyBalance ?? 0) > 0 || isSuccess;
+
+  useEffect(() => {
+    if (!isSuccess) return;
+    const t = setTimeout(() => refetchMashinsky(), 3_000);
+    return () => clearTimeout(t);
+  }, [isSuccess]);
+
   function handleCraft() {
     writeContract(
       { address: CONTRACT_ADDRESS, abi: ABI, functionName: "craftMashinsky", args: [], value: CRAFT_PRICE },
@@ -34,11 +48,12 @@ export function CelsiusCraftSection({ balances, mashinskyCrafted }: Props) {
 
   return (
     <>
-      {modalOpen && <LegendaryModal legendary={mashinsky} onClose={() => setModalOpen(false)} />}
+      {modalOpen && <LegendaryModal legendary={mashinsky} crafted={hasMashinskyNFT} onClose={() => setModalOpen(false)} />}
 
       <div className={`
         card-lift clip-cut border p-5 transition-all duration-300
-        ${mashinskyCrafted ? "border-border opacity-40"
+        ${mashinskyCrafted && !hasMashinskyNFT ? "border-border"
+          : hasMashinskyNFT ? "border-accent/50"
           : canCraft        ? "border-accent/50 animate-glow"
           :                   "border-border hover:border-accent/20"}
       `}>
@@ -64,23 +79,24 @@ export function CelsiusCraftSection({ balances, mashinskyCrafted }: Props) {
 
         {/* Legendary — clickable for modal */}
         <button
-          onClick={() => setModalOpen(true)}
-          className={`w-full clip-cut border p-4 mb-4 transition-all text-left group ${
-            mashinskyCrafted ? "border-border opacity-40"
-              : canCraft      ? "border-accent/40 hover:border-accent/70"
-              :                 "border-border hover:border-accent/20"
+          onClick={hasMashinskyNFT ? () => setModalOpen(true) : undefined}
+          className={`w-full clip-cut border p-4 mb-4 transition-all text-left ${hasMashinskyNFT ? "group cursor-pointer" : "cursor-default"} ${
+            mashinskyCrafted && !hasMashinskyNFT ? "border-border"
+              : hasMashinskyNFT ? "border-accent/50"
+              : canCraft        ? "border-accent/40"
+              :                   "border-border"
           }`}
         >
           <div className="w-full aspect-square overflow-hidden clip-cut-sm bg-navy mb-3 relative">
             <img
-              src="/nft/106.jpg"
+              src={hasMashinskyNFT ? "/nft/106.jpg" : "/nft/106_closed.jpg"}
               alt={mashinsky.name}
               className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
               onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent" />
             <div className="absolute bottom-2 right-2 font-mono text-[8px] text-muted/60 tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-              подробнее →
+              details →
             </div>
           </div>
           <div className={`font-mono text-2xl mb-2 text-center ${canCraft ? "text-accent" : "text-border"}`}>★</div>

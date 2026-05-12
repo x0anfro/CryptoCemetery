@@ -1,8 +1,8 @@
 {
-  "name": "??? ✝ — Coming Soon",
-  "description": "This tombstone has not been revealed yet. A new wave is coming to Crypto Cemetery.",
-  "image": "ipfs://bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i",
-  "external_url": "https://crypto-cemetery.xyz/tombstone/11",
+  "name": "BitConnect X ✝",
+  "description": "A tombstone commemorating the collapse of BitConnect X (2018–2018). The sequel nobody asked for, exited even faster. Part of the BitConnect set — collect the full set to craft the villain portrait.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/11.jpg",
+  "external_url": "https://cryptometery.xyz/tombstone/11",
   "attributes": [
     {
       "trait_type": "Type",
@@ -13,8 +13,28 @@
       "value": "Common"
     },
     {
-      "trait_type": "Status",
-      "value": "Unrevealed"
+      "trait_type": "Born",
+      "value": "2018"
+    },
+    {
+      "trait_type": "Died",
+      "value": "2018"
+    },
+    {
+      "trait_type": "Cause of Death",
+      "value": "Rug Pull"
+    },
+    {
+      "trait_type": "Amount Lost",
+      "value": "$45,000,000"
+    },
+    {
+      "trait_type": "Group",
+      "value": "BitConnect"
+    },
+    {
+      "trait_type": "Epitaph",
+      "value": "The sequel nobody asked for, exited even faster."
     }
   ]
 }

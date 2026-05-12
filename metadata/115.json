@@ -1,0 +1,48 @@
+{
+  "name": "Laszlo Hanyecz",
+  "description": "EPIC — Laszlo Hanyecz (aka \"Pizza Man\"). On May 22, 2010, Laszlo Hanyecz paid 10,000 BTC for two large Papa John's pizzas — the first documented real-world Bitcoin purchase. He pioneered GPU mining and developed the first Bitcoin client for macOS. He has no regrets: for him it was an experiment that proved Bitcoin worked as money.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/115.jpg",
+  "external_url": "https://cryptometery.xyz/legendary/115",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Epic Villain Portrait"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Epic"
+    },
+    {
+      "trait_type": "Group",
+      "value": "Bitcoin Pizza Day"
+    },
+    {
+      "trait_type": "Alias",
+      "value": "Pizza Man"
+    },
+    {
+      "trait_type": "Crime",
+      "value": "Spent 10,000 BTC on pizza"
+    },
+    {
+      "trait_type": "Sentence",
+      "value": "None"
+    },
+    {
+      "trait_type": "Status",
+      "value": "No regrets"
+    },
+    {
+      "trait_type": "Total Damage",
+      "value": "10,000 BTC (~$1B)"
+    },
+    {
+      "trait_type": "Victims",
+      "value": "Himself"
+    },
+    {
+      "trait_type": "Famous Quote",
+      "value": "Someone had to start."
+    }
+  ]
+}

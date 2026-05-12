@@ -27,25 +27,26 @@ function SlotCard({ name, label, owned }: { name: string; label?: string; owned:
   );
 }
 
-function LegendaryCard({ legendary, crafted, canCraft, onClick }: {
+function LegendaryCard({ legendary, crafted, userOwns, canCraft, onClick }: {
   legendary: (typeof LEGENDARIES)[number];
-  crafted: boolean; canCraft: boolean; onClick: () => void;
+  crafted: boolean; userOwns: boolean; canCraft: boolean; onClick: () => void;
 }) {
   return (
     <button
-      onClick={onClick}
-      className={`w-full clip-cut border p-3 mb-3 transition-all text-left group ${
-        crafted    ? "border-border opacity-40"
-        : canCraft ? "border-accent/40 hover:border-accent/70"
-        :            "border-border hover:border-accent/20"
+      onClick={userOwns ? onClick : undefined}
+      className={`w-full clip-cut border p-3 mb-3 transition-all text-left ${userOwns ? "group cursor-pointer" : "cursor-default"} ${
+        crafted && !userOwns ? "border-border"
+        : userOwns           ? "border-accent/50"
+        : canCraft           ? "border-accent/40"
+        :                      "border-border"
       }`}
     >
       <div className="w-full aspect-square overflow-hidden clip-cut-sm bg-navy mb-2 relative">
         <img
-          src={`/nft/${legendary.id}.jpg`}
+          src={userOwns ? `/nft/${legendary.id}.jpg` : `/nft/${legendary.id}_closed.jpg`}
           alt={legendary.name}
           className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-          onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+          onError={(e) => { (e.target as HTMLImageElement).src = `/nft/${legendary.id}.jpg`; }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent" />
         <div className="absolute bottom-1.5 right-1.5 font-mono text-[7px] text-muted/50 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -103,19 +104,35 @@ export function BitConnectCraftSection({ balances, matosCrafted, kumbhaniCrafted
   const busyK = pendingK || confirmK;
 
   const { data: arcData, refetch: refetchArc } = useReadContracts({
-    contracts: [{
-      address: CONTRACT_ADDRESS, abi: ABI, functionName: "balanceOf" as const,
-      args: [address ?? "0x0000000000000000000000000000000000000000", BigInt(204)] as const,
-    }],
+    contracts: [
+      {
+        address: CONTRACT_ADDRESS, abi: ABI, functionName: "balanceOf" as const,
+        args: [address ?? "0x0000000000000000000000000000000000000000", BigInt(204)] as const,
+      },
+      {
+        address: CONTRACT_ADDRESS, abi: ABI, functionName: "balanceOf" as const,
+        args: [address ?? "0x0000000000000000000000000000000000000000", BigInt(104)] as const,
+      },
+      {
+        address: CONTRACT_ADDRESS, abi: ABI, functionName: "balanceOf" as const,
+        args: [address ?? "0x0000000000000000000000000000000000000000", BigInt(109)] as const,
+      },
+    ],
     query: { enabled: !!address, refetchInterval: busyA ? 3_000 : 20_000 },
   });
 
-  const arcBalance = Number(arcData?.[0]?.result ?? balances[204] ?? 0);
-  const hasArc     = arcBalance >= 1;
+  const arcBalance     = Number(arcData?.[0]?.result ?? balances[204] ?? 0);
+  const matBalance     = Number(arcData?.[1]?.result ?? 0);
+  const hasArc         = arcBalance >= 1;
+  const hasMatos104    = matBalance >= 1;
+  const hasKumbhaniNFT = Number(arcData?.[2]?.result ?? 0) > 0;
+  const arcRevealed = arcBalance > 0;
 
-  const canGetArc  = hasTombstones;
-  const canMatos   = hasBitConnect2 && hasArc && !matosCrafted;
-  const canKumbhani = hasBCC2 && hasArc && !kumbhaniCrafted;
+  const canGetArc   = hasTombstones;
+  // Matos: proof = Arcaro owned, fuel = BitConnect×2
+  const canMatos    = hasArc && hasBitConnect2 && !matosCrafted;
+  // Kumbhani: proof = Matos owned (not burned), fuel = BCC×2
+  const canKumbhani = hasMatos104 && hasBCC2 && !kumbhaniCrafted;
 
   useEffect(() => {
     if (!successA) return;
@@ -154,7 +171,13 @@ export function BitConnectCraftSection({ balances, matosCrafted, kumbhaniCrafted
 
   return (
     <>
-      {modalLegendary && <LegendaryModal legendary={modalLegendary} onClose={() => setModal(null)} />}
+      {modalLegendary && (
+        <LegendaryModal
+          legendary={modalLegendary}
+          crafted={modal === 104 ? hasMatos104 : hasKumbhaniNFT}
+          onClose={() => setModal(null)}
+        />
+      )}
       {intModal && <IntermediateModal intermediate={intModal} onClose={() => setIntModal(null)} />}
 
       <div className="clip-cut border border-border p-5 col-span-1 md:col-span-2 xl:col-span-3">
@@ -176,10 +199,10 @@ export function BitConnectCraftSection({ balances, matosCrafted, kumbhaniCrafted
           </div>
           <div className="border border-border/50 bg-surface/50 clip-cut-sm px-4 py-3">
             <p className="font-sans text-[12px] text-muted leading-relaxed">
-              <span className="text-accent font-semibold">Гленн Аркаро</span> — главный промоутер BitConnect в США,
-              сотрудничал со следствием и сдал схему изнутри.
-              Сожгите три надгробия чтобы получить его показания, затем используйте их для обоих дел:
-              Матос пойман через суд, Кумбхани до сих пор в бегах.
+              <span className="text-accent font-semibold">Glenn Arcaro</span> — BitConnect's top US promoter,
+              cooperated with investigators and exposed the scheme from the inside.
+              Burn three tombstones to get his testimony, then use it for both cases:
+              Matos caught in court, Kumbhani still at large.
             </p>
           </div>
         </div>
@@ -190,7 +213,7 @@ export function BitConnectCraftSection({ balances, matosCrafted, kumbhaniCrafted
           <div className="flex flex-col">
             <div className="flex items-center gap-2 mb-4">
               <div className="font-mono text-[9px] tracking-widest text-muted uppercase bg-surface border border-border px-2 py-1">Stage 1</div>
-              <div className="font-mono text-[10px] text-text">Получить показания</div>
+              <div className="font-mono text-[10px] text-text">Get testimony</div>
               <div className="flex gap-1 ml-auto">
                 {ownedSlots.map((o, i) => (
                   <div key={i} className={`w-1.5 h-1.5 rotate-45 ${o ? "bg-accent" : "bg-border"}`} />
@@ -207,29 +230,29 @@ export function BitConnectCraftSection({ balances, matosCrafted, kumbhaniCrafted
             <div className="h-px bg-border mb-4" />
 
             <button
-              onClick={() => setIntModal(arcaro)}
-              className={`w-full clip-cut border p-3 mb-3 transition-all text-left group ${
-                arcBalance > 0 ? "border-accent/50 hover:border-accent/80" : "border-border hover:border-accent/30"
+              onClick={arcRevealed ? () => setIntModal(arcaro) : undefined}
+              className={`w-full clip-cut border p-3 mb-3 transition-all text-left ${arcRevealed ? "group cursor-pointer" : "cursor-default"} ${
+                arcRevealed ? "border-accent/50" : "border-border"
               }`}
             >
               <div className="w-full aspect-square overflow-hidden clip-cut-sm bg-navy mb-2 relative">
                 <img
-                  src="/nft/204.jpg"
+                  src={arcRevealed ? "/nft/204.jpg" : "/nft/204_closed.jpg"}
                   alt="Glenn Arcaro"
                   className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                  onError={(e) => { (e.target as HTMLImageElement).src = "/nft/204.jpg"; }}
                 />
                 <div className="absolute bottom-1.5 right-1.5 font-mono text-[7px] text-muted/50 opacity-0 group-hover:opacity-100 transition-opacity">
-                  подробнее →
+                  details →
                 </div>
               </div>
               <div className="font-mono text-[9px] tracking-widest uppercase text-center px-2 py-0.5 border mb-1.5 mx-auto w-fit border-accent/30 bg-accent/10 text-accent">
-                ◈ Свидетель
+                ◈ Witness
               </div>
               <div className="font-sans text-xs text-text font-semibold text-center">{arcaro.name}</div>
               <div className="font-mono text-[9px] text-muted text-center">{arcaro.role}</div>
-              {arcBalance > 0 && (
-                <div className="font-mono text-[10px] text-accent text-center mt-1.5">×{arcBalance} в кошельке</div>
+              {arcRevealed && (
+                <div className="font-mono text-[10px] text-accent text-center mt-1.5">{arcBalance > 0 ? `×${arcBalance} in wallet` : "Crafted ✓"}</div>
               )}
             </button>
 
@@ -255,21 +278,23 @@ export function BitConnectCraftSection({ balances, matosCrafted, kumbhaniCrafted
               <div className="font-mono text-[9px] tracking-widest text-muted uppercase bg-surface border border-border px-2 py-1">Stage 2a</div>
               <div className="font-mono text-[10px] text-text">BitConnect</div>
               <div className="flex gap-1 ml-auto">
-                {[hasBitConnect, hasBitConnect2, hasArc].map((o, i) => (
+                {[hasArc, hasBitConnect, hasBitConnect2].map((o, i) => (
                   <div key={i} className={`w-1.5 h-1.5 rotate-45 ${o ? "bg-accent" : "bg-border"}`} />
                 ))}
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-1.5 mb-4">
+            <div className="grid grid-cols-2 gap-1.5 mb-2">
+              <SlotCard name="Arcaro" label="proof" owned={hasArc} />
+            </div>
+            <div className="grid grid-cols-2 gap-1.5 mb-4">
               <SlotCard name="BitConnect" label="×1" owned={hasBitConnect} />
               <SlotCard name="BitConnect" label="×2" owned={hasBitConnect2} />
-              <SlotCard name="Arcaro"     owned={hasArc} />
             </div>
 
             <div className="h-px bg-border mb-4" />
 
-            <LegendaryCard legendary={matos} crafted={matosCrafted} canCraft={canMatos} onClick={() => setModal(104)} />
+            <LegendaryCard legendary={matos} crafted={matosCrafted} userOwns={hasMatos104} canCraft={canMatos} onClick={() => setModal(104)} />
 
             <button
               onClick={handleMatos}
@@ -281,12 +306,12 @@ export function BitConnectCraftSection({ balances, matosCrafted, kumbhaniCrafted
                   :                     "bg-surface text-muted/40 cursor-not-allowed border border-border"}
               `}
             >
-              {matosCrafted  ? "Already Crafted"
-               : successM    ? "★ Crafted"
-               : busyM       ? "Crafting…"
-               : canMatos    ? "CRAFT"
-               : !hasBitConnect2 ? "BitConnect ×2"
-               :               "Need Arcaro"}
+              {matosCrafted    ? "Already Crafted"
+               : successM      ? "★ Crafted"
+               : busyM         ? "Crafting…"
+               : canMatos      ? "CRAFT"
+               : !hasArc       ? "Need Arcaro"
+               :                 "BitConnect ×2"}
             </button>
           </div>
 
@@ -296,21 +321,23 @@ export function BitConnectCraftSection({ balances, matosCrafted, kumbhaniCrafted
               <div className="font-mono text-[9px] tracking-widest text-muted uppercase bg-surface border border-border px-2 py-1">Stage 2b</div>
               <div className="font-mono text-[10px] text-text">BCC Token</div>
               <div className="flex gap-1 ml-auto">
-                {[hasBCC, hasBCC2, hasArc].map((o, i) => (
+                {[hasMatos104, hasBCC, hasBCC2].map((o, i) => (
                   <div key={i} className={`w-1.5 h-1.5 rotate-45 ${o ? "bg-accent" : "bg-border"}`} />
                 ))}
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-1.5 mb-4">
+            <div className="grid grid-cols-2 gap-1.5 mb-2">
+              <SlotCard name="Carlos Matos" label="proof" owned={hasMatos104} />
+            </div>
+            <div className="grid grid-cols-2 gap-1.5 mb-4">
               <SlotCard name="BCC Token" label="×1" owned={hasBCC} />
               <SlotCard name="BCC Token" label="×2" owned={hasBCC2} />
-              <SlotCard name="Arcaro"    owned={hasArc} />
             </div>
 
             <div className="h-px bg-border mb-4" />
 
-            <LegendaryCard legendary={kumbhani} crafted={kumbhaniCrafted} canCraft={canKumbhani} onClick={() => setModal(109)} />
+            <LegendaryCard legendary={kumbhani} crafted={kumbhaniCrafted} userOwns={hasKumbhaniNFT} canCraft={canKumbhani} onClick={() => setModal(109)} />
 
             <button
               onClick={handleKumbhani}
@@ -326,8 +353,8 @@ export function BitConnectCraftSection({ balances, matosCrafted, kumbhaniCrafted
                : successK      ? "★ Crafted"
                : busyK         ? "Crafting…"
                : canKumbhani   ? "CRAFT"
-               : !hasBCC2      ? "BCC Token ×2"
-               :                 "Need Arcaro"}
+               : !hasMatos104  ? "Need Carlos Matos"
+               :                 "BCC Token ×2"}
             </button>
           </div>
 

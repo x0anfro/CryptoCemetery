@@ -1,8 +1,8 @@
 {
-  "name": "??? ✝ — Coming Soon",
-  "description": "This tombstone has not been revealed yet. A new wave is coming to Crypto Cemetery.",
-  "image": "ipfs://bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i",
-  "external_url": "https://crypto-cemetery.xyz/tombstone/5",
+  "name": "Anchor Protocol ✝",
+  "description": "A tombstone commemorating the collapse of Anchor Protocol (2021–2022). 20% APY. Sustainable. Trust me. Part of the Terra set — collect the full set to craft the villain portrait.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/5.jpg",
+  "external_url": "https://cryptometery.xyz/tombstone/5",
   "attributes": [
     {
       "trait_type": "Type",
@@ -13,8 +13,28 @@
       "value": "Common"
     },
     {
-      "trait_type": "Status",
-      "value": "Unrevealed"
+      "trait_type": "Born",
+      "value": "2021"
+    },
+    {
+      "trait_type": "Died",
+      "value": "2022"
+    },
+    {
+      "trait_type": "Cause of Death",
+      "value": "Ponzi"
+    },
+    {
+      "trait_type": "Amount Lost",
+      "value": "$14,000,000,000"
+    },
+    {
+      "trait_type": "Group",
+      "value": "Terra"
+    },
+    {
+      "trait_type": "Epitaph",
+      "value": "20% APY. Sustainable. Trust me."
     }
   ]
 }

@@ -1,0 +1,28 @@
+{
+  "name": "Alexei Bilyuchenko",
+  "description": "RARE — Alexei Bilyuchenko, Mt. Gox Hacker & BTC-e Co-operator. A witness in the Mt. Gox / BTC-e saga. Charged in 2023 for laundering 647,000 BTC. In Russia; extradition impossible.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/203.jpg",
+  "external_url": "https://cryptometery.xyz/witness/203",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Witness"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Group",
+      "value": "Mt. Gox / BTC-e"
+    },
+    {
+      "trait_type": "Role",
+      "value": "Mt. Gox Hacker & BTC-e Co-operator"
+    },
+    {
+      "trait_type": "Fate",
+      "value": "Charged in 2023 for laundering 647,000 BTC. In Russia; extradition impossible."
+    }
+  ]
+}

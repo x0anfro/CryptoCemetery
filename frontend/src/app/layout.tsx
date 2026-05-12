@@ -33,6 +33,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Header />
           <main className="max-w-6xl mx-auto px-5 py-12">{children}</main>
           <footer className="border-t border-border mt-20 py-8">
+            <div className="flex flex-col items-center gap-3">
+            <a
+                href="https://x.com/anyfrolove"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-[10px] tracking-widest text-muted uppercase hover:text-accent transition-colors"
+              >
+                @anyfrolove
+              </a>
             <div className="flex items-center justify-center gap-4">
               <svg viewBox="0 0 200 200" fill="none" className="w-5 h-5 opacity-30">
                 <path d="M58 72 Q58 32 100 32 Q142 32 142 72 L142 112 Q142 128 132 134 L132 150 L116 150 L116 138 L106 138 L106 150 L94 150 L94 138 L84 138 L84 150 L68 150 L68 134 Q58 128 58 112 Z"
@@ -55,6 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <path d="M120 68 L120 74 M120 100 L120 106" stroke="#f5f1e8" strokeWidth="3" strokeLinecap="round"/>
                 <path d="M100 110 L94 122 L106 122 Z" fill="#f5f1e8"/>
               </svg>
+            </div>
             </div>
           </footer>
         </Providers>

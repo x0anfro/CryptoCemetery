@@ -1,0 +1,28 @@
+{
+  "name": "Gary Wang",
+  "description": "RARE — Gary Wang, Co-founder & CTO, FTX. A witness in the FTX saga. Sentenced to time served (Nov 2024) — no prison time for extraordinary cooperation.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/202.jpg",
+  "external_url": "https://cryptometery.xyz/witness/202",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Witness"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Group",
+      "value": "FTX"
+    },
+    {
+      "trait_type": "Role",
+      "value": "Co-founder & CTO, FTX"
+    },
+    {
+      "trait_type": "Fate",
+      "value": "Sentenced to time served (Nov 2024) — no prison time for extraordinary cooperation."
+    }
+  ]
+}

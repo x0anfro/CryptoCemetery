@@ -1,16 +1,20 @@
 {
-  "name": "Sam Bankman-Fried — The FTX Villain",
-  "description": "LEGENDARY. Sam Bankman-Fried (aka \"SBF\") — the mastermind behind the FTX collapse. Obtain only by burning the FTX tombstone trifecta. One exists. Ever.",
-  "image": "ipfs://bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i",
-  "external_url": "https://crypto-cemetery.xyz/legendary/101",
+  "name": "Sam Bankman-Fried",
+  "description": "EPIC — Sam Bankman-Fried (aka \"SBF\"), mastermind behind the FTX collapse. Crime: Fraud & Mismanagement. Status: Convicted. \"I didn't knowingly commit fraud. I think.\"",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/101.jpg",
+  "external_url": "https://cryptometery.xyz/legendary/101",
   "attributes": [
     {
       "trait_type": "Type",
-      "value": "Legendary Villain"
+      "value": "Epic Villain Portrait"
     },
     {
       "trait_type": "Rarity",
-      "value": "Legendary"
+      "value": "Epic"
+    },
+    {
+      "trait_type": "Group",
+      "value": "FTX"
     },
     {
       "trait_type": "Alias",
@@ -35,10 +39,6 @@
     {
       "trait_type": "Victims",
       "value": "1,000,000+"
-    },
-    {
-      "trait_type": "Villain Group",
-      "value": "FTX"
     },
     {
       "trait_type": "Famous Quote",

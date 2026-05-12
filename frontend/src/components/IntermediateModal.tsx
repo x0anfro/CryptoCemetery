@@ -51,7 +51,7 @@ export function IntermediateModal({ intermediate, onClose }: Props) {
 
           <div className="absolute bottom-0 left-0 right-0 p-5">
             <div className="font-mono text-[9px] tracking-widest text-accent/70 uppercase mb-1">
-              {intermediate.group} · Свидетель
+              {intermediate.group} · Witness
             </div>
             <h2 className="font-sans font-bold text-xl text-text leading-tight">{intermediate.name}</h2>
             <p className="font-mono text-[10px] text-muted mt-0.5">{intermediate.role}</p>
@@ -67,7 +67,7 @@ export function IntermediateModal({ intermediate, onClose }: Props) {
 
           {/* Fate */}
           <div className="border border-border/50 bg-surface/50 clip-cut-sm px-4 py-3">
-            <div className="font-mono text-[9px] tracking-widest text-accent uppercase mb-2">Судьба</div>
+            <div className="font-mono text-[9px] tracking-widest text-accent uppercase mb-2">Fate</div>
             <p className="text-[13px] text-text/80 leading-relaxed">{intermediate.fate}</p>
           </div>
         </div>

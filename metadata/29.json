@@ -1,0 +1,40 @@
+{
+  "name": "DMM Bitcoin ✝",
+  "description": "A tombstone commemorating the collapse of DMM Bitcoin (2018–2024). 4,502 BTC. One social engineering call. One exchange closed forever. Part of the Lazarus set — collect the full set to craft the villain portrait.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/29.jpg",
+  "external_url": "https://cryptometery.xyz/tombstone/29",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Tombstone"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Born",
+      "value": "2018"
+    },
+    {
+      "trait_type": "Died",
+      "value": "2024"
+    },
+    {
+      "trait_type": "Cause of Death",
+      "value": "Hack"
+    },
+    {
+      "trait_type": "Amount Lost",
+      "value": "$308,000,000"
+    },
+    {
+      "trait_type": "Group",
+      "value": "Lazarus"
+    },
+    {
+      "trait_type": "Epitaph",
+      "value": "4,502 BTC. One social engineering call. One exchange closed forever."
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 {
-  "name": "??? ✝ — Coming Soon",
-  "description": "This tombstone has not been revealed yet. A new wave is coming to Crypto Cemetery.",
-  "image": "ipfs://bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i",
-  "external_url": "https://crypto-cemetery.xyz/tombstone/12",
+  "name": "BCC Token ✝",
+  "description": "A tombstone commemorating the collapse of BCC Token (2016–2018). From $400 to $0. Volatility works both ways. Part of the BitConnect set — collect the full set to craft the villain portrait.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/12.jpg",
+  "external_url": "https://cryptometery.xyz/tombstone/12",
   "attributes": [
     {
       "trait_type": "Type",
@@ -13,8 +13,28 @@
       "value": "Common"
     },
     {
-      "trait_type": "Status",
-      "value": "Unrevealed"
+      "trait_type": "Born",
+      "value": "2016"
+    },
+    {
+      "trait_type": "Died",
+      "value": "2018"
+    },
+    {
+      "trait_type": "Cause of Death",
+      "value": "Ponzi"
+    },
+    {
+      "trait_type": "Amount Lost",
+      "value": "$2,000,000,000"
+    },
+    {
+      "trait_type": "Group",
+      "value": "BitConnect"
+    },
+    {
+      "trait_type": "Epitaph",
+      "value": "From $400 to $0. Volatility works both ways."
     }
   ]
 }

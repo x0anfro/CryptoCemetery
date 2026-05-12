@@ -4,12 +4,24 @@ import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { type Legendary } from "@/lib/data";
 
+const RARITY_BADGE: Record<string, string> = {
+  epic:      "border-amber-500/60 bg-amber-950/30 text-amber-400",
+  legendary: "border-purple-800/60 bg-purple-950/30 text-purple-400",
+  rare:      "border-blue-800/60 bg-blue-950/30 text-blue-400",
+};
+
 interface Props {
   legendary: Legendary;
   onClose: () => void;
+  crafted?: boolean;
 }
 
-export function LegendaryModal({ legendary, onClose }: Props) {
+export function LegendaryModal({ legendary, onClose, crafted }: Props) {
+  const imgSrc = crafted === false
+    ? `/nft/${legendary.id}_closed.jpg`
+    : crafted === true && legendary.rarity === "epic"
+      ? `/nft/${legendary.id}_reveal.jpg`
+      : `/nft/${legendary.id}.jpg`;
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", onKey);
@@ -31,15 +43,20 @@ export function LegendaryModal({ legendary, onClose }: Props) {
         {/* Image */}
         <div className="relative bg-navy">
           <img
-            src={`/nft/${legendary.id}.jpg`}
+            src={imgSrc}
             alt={legendary.name}
             className="w-full h-auto block"
-            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+            onError={(e) => { (e.target as HTMLImageElement).src = `/nft/${legendary.id}.jpg`; }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-panel via-panel/20 to-transparent" />
 
-          <div className="absolute top-0 left-0 bg-navy/80 backdrop-blur-sm px-2.5 py-1.5 font-mono text-[10px] text-accent tracking-widest border-r border-b border-border">
-            #{legendary.id} ★
+          <div className="absolute top-0 left-0 flex items-center gap-0">
+            <div className="bg-navy/80 backdrop-blur-sm px-2.5 py-1.5 font-mono text-[10px] text-accent tracking-widest border-r border-b border-border">
+              #{legendary.id}
+            </div>
+            <div className={`px-2 py-1.5 font-mono text-[9px] tracking-widest uppercase border-r border-b ${RARITY_BADGE[legendary.rarity] ?? ""}`}>
+              {legendary.rarity}
+            </div>
           </div>
 
           <button
@@ -83,16 +100,16 @@ export function LegendaryModal({ legendary, onClose }: Props) {
 
           {/* Fate */}
           <div className="border border-border/50 bg-surface/50 clip-cut-sm px-4 py-3 mb-5">
-            <div className="font-mono text-[9px] tracking-widest text-accent uppercase mb-2">Судьба</div>
+            <div className="font-mono text-[9px] tracking-widest text-accent uppercase mb-2">Fate</div>
             <p className="text-[13px] text-text/80 leading-relaxed">{legendary.fate}</p>
           </div>
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 border-t border-border pt-4">
             {[
-              { k: "Ущерб",    v: legendary.total_damage, c: "text-red-400"  },
-              { k: "Жертвы",   v: legendary.victims,       c: "text-text"     },
-              { k: "Приговор", v: legendary.sentence,      c: "text-accent"   },
+              { k: "Damage",   v: legendary.total_damage, c: "text-red-400"  },
+              { k: "Victims",  v: legendary.victims,       c: "text-text"     },
+              { k: "Sentence", v: legendary.sentence,      c: "text-accent"   },
             ].map(({ k, v, c }) => (
               <div key={k}>
                 <div className="font-mono text-[9px] text-muted/60 uppercase tracking-wider mb-0.5">{k}</div>

@@ -55,20 +55,31 @@ export function OneCoinCraftSection({ balances, rujaCrafted }: Props) {
   const busyR = pendingR || confirmingR;
 
   const { data: witnessData, refetch: refetchWitnesses } = useReadContracts({
-    contracts: WITNESS_IDS.map((id) => ({
-      address: CONTRACT_ADDRESS,
-      abi: ABI,
-      functionName: "balanceOf" as const,
-      args: [address ?? "0x0000000000000000000000000000000000000000", BigInt(id)] as const,
-    })),
+    contracts: [
+      ...WITNESS_IDS.map((id) => ({
+        address: CONTRACT_ADDRESS,
+        abi: ABI,
+        functionName: "balanceOf" as const,
+        args: [address ?? "0x0000000000000000000000000000000000000000", BigInt(id)] as const,
+      })),
+      {
+        address: CONTRACT_ADDRESS,
+        abi: ABI,
+        functionName: "balanceOf" as const,
+        args: [address ?? "0x0000000000000000000000000000000000000000", BigInt(105)] as const,
+      },
+    ],
     query: { enabled: !!address, refetchInterval: busyW ? 3_000 : 20_000 },
   });
 
   const witnessBalances = WITNESS_IDS.map((id, i) =>
     Number(witnessData?.[i]?.result ?? balances[id] ?? 0)
   );
-  const hasWitness = witnessBalances.map((b) => b > 0);
-  const witnessCount = hasWitness.filter(Boolean).length;
+  const hasRujaNFT = Number(witnessData?.[4]?.result ?? 0) > 0 || successR;
+  const hasWitnessReal = witnessBalances.map((b) => b > 0);
+  // Stay revealed once Ruja is crafted (permanent achievement)
+  const hasWitness   = hasWitnessReal;
+  const witnessCount = hasWitnessReal.filter(Boolean).length;
   const allWitnesses = witnessCount === 4;
   const canBurn      = hasTombstones && !allWitnesses;
   const canCraftRuja = allWitnesses && !rujaCrafted;
@@ -95,7 +106,7 @@ export function OneCoinCraftSection({ balances, rujaCrafted }: Props) {
 
   return (
     <>
-      {modalOpen && <LegendaryModal legendary={ruja} onClose={() => setModalOpen(false)} />}
+      {modalOpen && <LegendaryModal legendary={ruja} crafted={hasRujaNFT} onClose={() => setModalOpen(false)} />}
       {intModal && <IntermediateModal intermediate={intModal} onClose={() => setIntModal(null)} />}
 
       <div className="clip-cut border border-border p-5 col-span-1 md:col-span-2 xl:col-span-3">
@@ -119,9 +130,9 @@ export function OneCoinCraftSection({ balances, rujaCrafted }: Props) {
           </div>
           <div className="border border-border/50 bg-surface/50 clip-cut-sm px-4 py-3">
             <p className="font-sans text-[12px] text-muted leading-relaxed">
-              <span className="text-accent font-semibold">Крипто-королева в бегах.</span>{" "}
-              Сожгите три надгробия OneCoin — получите одного свидетеля. Повторите 4 раза, соберите всех.
-              Только имея показания Ирины, Карла, Константина и Скотта — можно судить Ружу.
+              <span className="text-accent font-semibold">The Cryptoqueen is still at large.</span>{" "}
+              Burn three OneCoin tombstones — get one witness. Repeat 4 times to collect them all.
+              Only with the testimony of Irina, Karl, Konstantin and Scott can you sentence Ruja.
             </p>
           </div>
         </div>
@@ -131,8 +142,8 @@ export function OneCoinCraftSection({ balances, rujaCrafted }: Props) {
           {/* ── Col 1: Burn stage ── */}
           <div className="flex flex-col">
             <div className="flex items-center gap-2 mb-4">
-              <div className="font-mono text-[9px] tracking-widest text-muted uppercase bg-surface border border-border px-2 py-1">Сжечь ×{witnessCount}/4</div>
-              <div className="font-mono text-[10px] text-text">Выбить свидетеля</div>
+              <div className="font-mono text-[9px] tracking-widest text-muted uppercase bg-surface border border-border px-2 py-1">Burn ×{witnessCount}/4</div>
+              <div className="font-mono text-[10px] text-text">Get a witness</div>
               <div className="flex gap-1 ml-auto">
                 {[hasOneCoin, hasOneExchange, hasOneLife].map((o, i) => (
                   <div key={i} className={`w-1.5 h-1.5 rotate-45 ${o ? "bg-accent" : "bg-border"}`} />
@@ -151,7 +162,7 @@ export function OneCoinCraftSection({ balances, rujaCrafted }: Props) {
             {/* Progress bar */}
             <div className="mb-4">
               <div className="flex justify-between font-mono text-[9px] text-muted mb-1.5">
-                <span>Свидетелей получено</span>
+                <span>Witnesses obtained</span>
                 <span className={allWitnesses ? "text-accent" : "text-text"}>{witnessCount} / 4</span>
               </div>
               <div className="h-1 bg-surface border border-border">
@@ -183,7 +194,7 @@ export function OneCoinCraftSection({ balances, rujaCrafted }: Props) {
           {/* ── Col 2: Witnesses 2×2 ── */}
           <div className="flex flex-col">
             <div className="flex items-center gap-2 mb-4">
-              <div className="font-mono text-[9px] tracking-widest text-muted uppercase bg-surface border border-border px-2 py-1">Свидетели</div>
+              <div className="font-mono text-[9px] tracking-widest text-muted uppercase bg-surface border border-border px-2 py-1">Witnesses</div>
               <div className="flex gap-1 ml-auto">
                 {hasWitness.map((o, i) => (
                   <div key={i} className={`w-1.5 h-1.5 rotate-45 ${o ? "bg-accent" : "bg-border"}`} />
@@ -195,23 +206,19 @@ export function OneCoinCraftSection({ balances, rujaCrafted }: Props) {
               {witnesses.map((w, i) => (
                 <button
                   key={w.id}
-                  onClick={() => setIntModal(w)}
-                  className={`clip-cut border flex flex-col items-center gap-1.5 p-3 transition-all text-left group ${
-                    hasWitness[i]
-                      ? "border-accent/50 hover:border-accent/80"
-                      : "border-border"
-                  }`}
+                  onClick={hasWitnessReal[i] ? () => setIntModal(w) : undefined}
+                  className={`clip-cut border flex flex-col items-center gap-1.5 p-3 transition-all text-left ${hasWitness[i] ? "group cursor-pointer border-accent/50" : "cursor-default border-border"}`}
                 >
                   <div className="w-full aspect-square overflow-hidden clip-cut-sm bg-panel relative">
                     <img
-                      src={`/nft/${w.id}.jpg`}
+                      src={hasWitness[i] ? `/nft/${w.id}.jpg` : `/nft/${w.id}_closed.jpg`}
                       alt={w.name}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                      onError={(e) => { (e.target as HTMLImageElement).src = `/nft/${w.id}.jpg`; }}
                     />
                     {hasWitness[i] && (
                       <div className="absolute bottom-1 right-1 font-mono text-[7px] text-muted/50 opacity-0 group-hover:opacity-100 transition-opacity">
-                        подробнее →
+                        details →
                       </div>
                     )}
                   </div>
@@ -220,7 +227,7 @@ export function OneCoinCraftSection({ balances, rujaCrafted }: Props) {
                       ? "text-accent border-accent/30 bg-accent/10"
                       : "text-muted border-border"
                   }`}>
-                    {hasWitness[i] ? "Получен ✓" : "Ожидает"}
+                    {hasWitness[i] ? "Obtained ✓" : "Waiting"}
                   </div>
                   <div className="font-sans text-[10px] text-text font-semibold text-center leading-tight">{w.name}</div>
                   <div className="font-mono text-[8px] text-muted text-center leading-tight">{w.role.split(",")[0]}</div>
@@ -233,7 +240,7 @@ export function OneCoinCraftSection({ balances, rujaCrafted }: Props) {
           <div className="flex flex-col">
             <div className="flex items-center gap-2 mb-4">
               <div className="font-mono text-[9px] tracking-widest text-muted uppercase bg-surface border border-border px-2 py-1">Stage Final</div>
-              <div className="font-mono text-[10px] text-text">Осудить Ружу</div>
+              <div className="font-mono text-[10px] text-text">Sentence Ruja</div>
               <div className="flex gap-1 ml-auto">
                 {hasWitness.map((o, i) => (
                   <div key={i} className={`w-1.5 h-1.5 rotate-45 ${o ? "bg-accent" : "bg-border"}`} />
@@ -242,28 +249,22 @@ export function OneCoinCraftSection({ balances, rujaCrafted }: Props) {
             </div>
 
             <button
-              onClick={() => setModalOpen(true)}
-              className={`w-full clip-cut border p-3 mb-3 transition-all text-left group ${
-                rujaCrafted    ? "border-border opacity-40"
-                : canCraftRuja ? "border-accent/40 hover:border-accent/70"
-                :                "border-border hover:border-accent/20"
+              onClick={hasRujaNFT ? () => setModalOpen(true) : undefined}
+              className={`w-full clip-cut border p-3 mb-3 transition-all text-left ${hasRujaNFT ? "group cursor-pointer" : "cursor-default"} ${
+                rujaCrafted && !hasRujaNFT ? "border-border"
+                : hasRujaNFT  ? "border-accent/50"
+                : canCraftRuja ? "border-accent/40"
+                :                "border-border"
               }`}
             >
               <div className="w-full aspect-square overflow-hidden clip-cut-sm bg-navy mb-2 relative">
                 <img
-                  src="/nft/105.jpg"
+                  src={hasRujaNFT ? "/nft/105.jpg" : "/nft/105_closed.jpg"}
                   alt="Ruja Ignatova"
                   className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                  onError={(e) => { (e.target as HTMLImageElement).src = "/nft/105.jpg"; }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent" />
-                {!canCraftRuja && !rujaCrafted && (
-                  <div className="absolute inset-0 bg-navy/50 flex items-center justify-center">
-                    <div className="font-mono text-[9px] tracking-widest text-muted/60 uppercase text-center px-2">
-                      Нужны все свидетели
-                    </div>
-                  </div>
-                )}
                 <div className="absolute bottom-1.5 right-1.5 font-mono text-[7px] text-muted/50 opacity-0 group-hover:opacity-100 transition-opacity">
                   подробнее →
                 </div>

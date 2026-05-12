@@ -1,0 +1,48 @@
+{
+  "name": "Stefan Thomas",
+  "description": "LEGENDARY — Stefan Thomas (aka \"Two Tries Left\"). Stefan placed the drive in a secret, secure location — reportedly a Swiss vault — and is waiting for more reliable decryption methods to emerge. Quantum computing remains his last theoretical hope.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/112.jpg",
+  "external_url": "https://cryptometery.xyz/legendary/112",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Legendary Villain Portrait"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Group",
+      "value": "Forgotten Keys"
+    },
+    {
+      "trait_type": "Alias",
+      "value": "Two Tries Left"
+    },
+    {
+      "trait_type": "Crime",
+      "value": "Lost Access"
+    },
+    {
+      "trait_type": "Sentence",
+      "value": "Self-inflicted"
+    },
+    {
+      "trait_type": "Status",
+      "value": "Waiting"
+    },
+    {
+      "trait_type": "Total Damage",
+      "value": "$700,000,000"
+    },
+    {
+      "trait_type": "Victims",
+      "value": "Himself"
+    },
+    {
+      "trait_type": "Famous Quote",
+      "value": "I have two tries left. I'm not going to waste them."
+    }
+  ]
+}

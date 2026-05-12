@@ -1,0 +1,28 @@
+{
+  "name": "Glenn Arcaro",
+  "description": "RARE — Glenn Arcaro, BitConnect US Promoter. A witness in the BitConnect saga. Convicted Sep 2021. Sentenced to 45 months. Paid $24M to victims.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/204.jpg",
+  "external_url": "https://cryptometery.xyz/witness/204",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Witness"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Group",
+      "value": "BitConnect"
+    },
+    {
+      "trait_type": "Role",
+      "value": "BitConnect US Promoter"
+    },
+    {
+      "trait_type": "Fate",
+      "value": "Convicted Sep 2021. Sentenced to 45 months. Paid $24M to victims."
+    }
+  ]
+}

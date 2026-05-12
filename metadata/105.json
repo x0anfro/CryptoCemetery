@@ -1,16 +1,20 @@
 {
-  "name": "Ruja Ignatova — The OneCoin Villain",
-  "description": "LEGENDARY. Ruja Ignatova (aka \"Cryptoqueen\") — the mastermind behind the OneCoin collapse. Obtain only by burning the OneCoin tombstone trifecta. One exists. Ever.",
-  "image": "ipfs://bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i",
-  "external_url": "https://crypto-cemetery.xyz/legendary/105",
+  "name": "Ruja Ignatova",
+  "description": "EPIC — Ruja Ignatova (aka \"Cryptoqueen\"), mastermind behind the OneCoin collapse. Crime: Wire Fraud & Money Laundering. Status: At Large. \"OneCoin will replace Bitcoin.\"",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/105.jpg",
+  "external_url": "https://cryptometery.xyz/legendary/105",
   "attributes": [
     {
       "trait_type": "Type",
-      "value": "Legendary Villain"
+      "value": "Epic Villain Portrait"
     },
     {
       "trait_type": "Rarity",
-      "value": "Legendary"
+      "value": "Epic"
+    },
+    {
+      "trait_type": "Group",
+      "value": "OneCoin"
     },
     {
       "trait_type": "Alias",
@@ -22,7 +26,7 @@
     },
     {
       "trait_type": "Sentence",
-      "value": "Fugitive (FBI Top 10)"
+      "value": "FBI Top 10"
     },
     {
       "trait_type": "Status",
@@ -35,10 +39,6 @@
     {
       "trait_type": "Victims",
       "value": "3,000,000+"
-    },
-    {
-      "trait_type": "Villain Group",
-      "value": "OneCoin"
     },
     {
       "trait_type": "Famous Quote",

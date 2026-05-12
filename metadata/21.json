@@ -1,8 +1,8 @@
 {
-  "name": "??? ✝ — Coming Soon",
-  "description": "This tombstone has not been revealed yet. A new wave is coming to Crypto Cemetery.",
-  "image": "ipfs://bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i",
-  "external_url": "https://crypto-cemetery.xyz/tombstone/21",
+  "name": "GBTC Trade ✝",
+  "description": "A tombstone commemorating the collapse of GBTC Trade (2020–2022). The discount that discounted their existence. Part of the 3AC set — collect the full set to craft the villain portrait.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/21.jpg",
+  "external_url": "https://cryptometery.xyz/tombstone/21",
   "attributes": [
     {
       "trait_type": "Type",
@@ -13,8 +13,28 @@
       "value": "Common"
     },
     {
-      "trait_type": "Status",
-      "value": "Unrevealed"
+      "trait_type": "Born",
+      "value": "2020"
+    },
+    {
+      "trait_type": "Died",
+      "value": "2022"
+    },
+    {
+      "trait_type": "Cause of Death",
+      "value": "Hubris"
+    },
+    {
+      "trait_type": "Amount Lost",
+      "value": "$1,200,000,000"
+    },
+    {
+      "trait_type": "Group",
+      "value": "3AC"
+    },
+    {
+      "trait_type": "Epitaph",
+      "value": "The discount that discounted their existence."
     }
   ]
 }

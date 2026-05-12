@@ -1,0 +1,48 @@
+{
+  "name": "Satish Kumbhani",
+  "description": "EPIC — Satish Kumbhani (aka \"BitConnect Boss\"), mastermind behind the BitConnect collapse. Crime: Securities & Commodities Fraud. Status: At Large. \"BitConnect is the future.\"",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/109.jpg",
+  "external_url": "https://cryptometery.xyz/legendary/109",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Epic Villain Portrait"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Epic"
+    },
+    {
+      "trait_type": "Group",
+      "value": "BitConnect"
+    },
+    {
+      "trait_type": "Alias",
+      "value": "BitConnect Boss"
+    },
+    {
+      "trait_type": "Crime",
+      "value": "Securities & Commodities Fraud"
+    },
+    {
+      "trait_type": "Sentence",
+      "value": "Fugitive"
+    },
+    {
+      "trait_type": "Status",
+      "value": "At Large"
+    },
+    {
+      "trait_type": "Total Damage",
+      "value": "$2,400,000,000"
+    },
+    {
+      "trait_type": "Victims",
+      "value": "300,000+"
+    },
+    {
+      "trait_type": "Famous Quote",
+      "value": "BitConnect is the future."
+    }
+  ]
+}

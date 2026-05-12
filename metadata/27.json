@@ -1,0 +1,40 @@
+{
+  "name": "Ronin Network ✝",
+  "description": "A tombstone commemorating the collapse of Ronin Network (2021–2022). 5 of 9 validators. One fake job offer. $625 million gone. Part of the Lazarus set — collect the full set to craft the villain portrait.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/27.jpg",
+  "external_url": "https://cryptometery.xyz/tombstone/27",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Tombstone"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Born",
+      "value": "2021"
+    },
+    {
+      "trait_type": "Died",
+      "value": "2022"
+    },
+    {
+      "trait_type": "Cause of Death",
+      "value": "Hack"
+    },
+    {
+      "trait_type": "Amount Lost",
+      "value": "$625,000,000"
+    },
+    {
+      "trait_type": "Group",
+      "value": "Lazarus"
+    },
+    {
+      "trait_type": "Epitaph",
+      "value": "5 of 9 validators. One fake job offer. $625 million gone."
+    }
+  ]
+}

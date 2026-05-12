@@ -49,7 +49,9 @@ body {
 }
 
 /* ── Diagonal line divider ───────────────────────────── */
-.poly-divider {
+.poly-divider,
+.poly-divider-fog,
+.poly-divider-blood {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -59,6 +61,18 @@ body {
   flex: 1;
   height: 1px;
   background: linear-gradient(to right, #1e3a57, transparent);
+}
+.poly-divider-fog::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, #374151, transparent);
+}
+.poly-divider-blood::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, #7f1d1d, transparent);
 }
 
 /* ── Scrollbar ───────────────────────────────────────── */

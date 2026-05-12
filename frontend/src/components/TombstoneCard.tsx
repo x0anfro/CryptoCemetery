@@ -14,36 +14,8 @@ const CAUSE_COLORS: Record<string, string> = {
   "Rug Pull":    "text-purple-400 border-purple-900/60 bg-purple-950/40",
   Mismanagement: "text-yellow-400 border-yellow-900/60 bg-yellow-950/40",
   Hubris:        "text-accent border-accent/30 bg-accent/5",
+  Lost:          "text-slate-300 border-slate-700/60 bg-slate-800/40",
 };
-
-function NftImage({ src, alt }: { src: string; alt: string }) {
-  const [loaded, setLoaded] = useState(false);
-  const [errored, setErrored] = useState(false);
-  const imgRef = useRef<HTMLImageElement>(null);
-
-  useEffect(() => {
-    if (imgRef.current?.complete) setLoaded(true);
-  }, [src]);
-
-  return (
-    <div className="relative w-full h-full bg-panel">
-      {!loaded && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-8 h-8 border border-border rotate-45 animate-pulse" />
-        </div>
-      )}
-      <img
-        ref={imgRef}
-        src={errored ? "/nft/placeholder.png" : src.replace(/\.png$/, ".jpg")}
-        alt={alt}
-        className={`w-full h-full object-cover transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
-        loading="eager"
-        onLoad={() => setLoaded(true)}
-        onError={() => setErrored(true)}
-      />
-    </div>
-  );
-}
 
 interface Props {
   tombstone: Tombstone;
@@ -56,12 +28,23 @@ export function TombstoneCard({ tombstone, owned = 0 }: Props) {
   const { switchChain } = useSwitchChain();
   const [txHash, setTxHash] = useState<`0x${string}` | undefined>();
   const [modalOpen, setModalOpen] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const [videoVisible, setVideoVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => { setMounted(true); }, []);
 
   const { writeContract, isPending } = useWriteContract();
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash: txHash });
 
   const isBusy = isPending || isConfirming;
-  const isWrongNetwork = isConnected && chainId !== SHAPE_CHAIN_ID;
+  const connected = mounted && isConnected;
+  const isWrongNetwork = connected && chainId !== SHAPE_CHAIN_ID;
+
+  useEffect(() => {
+    if (imgRef.current?.complete) setImgLoaded(true);
+  }, []);
 
   function handleMint() {
     if (isWrongNetwork) {
@@ -92,15 +75,42 @@ export function TombstoneCard({ tombstone, owned = 0 }: Props) {
         }
       `}
     >
-      {/* Image */}
+      {/* Image / Video area */}
       <div
-        className="relative h-56 group-hover:h-80 transition-[height] duration-500 ease-in-out overflow-hidden cursor-zoom-in"
+        className="relative h-56 overflow-hidden cursor-zoom-in"
         onClick={() => setModalOpen(true)}
       >
-        <NftImage
-          src={`/nft/${tombstone.id}.png`}
-          alt={tombstone.name}
-        />
+        {/* Static image — shown until video ready */}
+        <div className="absolute inset-0 bg-panel">
+          {!imgLoaded && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-8 h-8 border border-border rotate-45 animate-pulse" />
+            </div>
+          )}
+          <img
+            ref={imgRef}
+            src={`/nft/${tombstone.id}.jpg`}
+            alt={tombstone.name}
+            className={`w-full h-full object-cover transition-opacity duration-500 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
+            loading="eager"
+            onLoad={() => setImgLoaded(true)}
+            onError={(e) => { (e.target as HTMLImageElement).src = "/nft/placeholder.png"; }}
+          />
+        </div>
+
+        {/* Autoplay video overlay */}
+        {tombstone.video && (
+          <video
+            src={tombstone.video}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            onCanPlay={() => setVideoVisible(true)}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${videoVisible ? "opacity-100" : "opacity-0"}`}
+          />
+        )}
 
         {/* Owned badge */}
         {owned > 0 && (
@@ -108,8 +118,6 @@ export function TombstoneCard({ tombstone, owned = 0 }: Props) {
             Owned
           </div>
         )}
-
-
       </div>
 
       {/* Body */}
@@ -128,7 +136,9 @@ export function TombstoneCard({ tombstone, owned = 0 }: Props) {
         <div className="border-t border-border pt-3 grid grid-cols-2 gap-x-4 gap-y-1.5">
           {[
             ...(tombstone.amount_lost ? [{ k: tombstone.amount_label ?? "Lost", v: tombstone.amount_lost, c: "text-red-400" }] : []),
-            { k: "Era",     v: `${tombstone.born}–${tombstone.died}`, c: "text-muted"   },
+            ...(!tombstone.hideEra
+              ? [{ k: "Era", v: tombstone.singleEra ? `${tombstone.died}` : `${tombstone.born}–${tombstone.died}`, c: "text-muted" }]
+              : []),
             { k: "Group",   v: tombstone.group,                       c: "text-accent"  },
             ...(tombstone.villain ? [{ k: "Villain", v: tombstone.villain, c: "text-muted" }] : []),
             ...(tombstone.founder ? [{ k: "Founder", v: tombstone.founder, c: "text-muted" }] : []),
@@ -142,7 +152,7 @@ export function TombstoneCard({ tombstone, owned = 0 }: Props) {
 
         <button
           onClick={handleMint}
-          disabled={!isConnected || isBusy}
+          disabled={!connected || isBusy}
           className={`
             mt-1 w-full py-2.5 clip-cut-sm font-mono text-[10px] tracking-widest uppercase transition-all duration-200
             ${isSuccess
@@ -151,13 +161,13 @@ export function TombstoneCard({ tombstone, owned = 0 }: Props) {
               ? "bg-surface text-muted border border-border cursor-wait"
               : isWrongNetwork
               ? "bg-orange-950/40 text-orange-400 border border-orange-700 hover:bg-orange-900/40"
-              : isConnected
+              : connected
               ? "bg-accent/10 text-accent border border-accent/50 hover:bg-accent/20 hover:border-accent"
               : "bg-surface text-muted/50 border border-border cursor-not-allowed"
             }
           `}
         >
-          {!isConnected    ? "Connect Wallet"
+          {!connected      ? "Connect Wallet"
             : isBusy       ? "Confirming…"
             : isSuccess    ? "✓ Minted"
             : isWrongNetwork ? "Switch to Shape"

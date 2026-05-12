@@ -1,0 +1,40 @@
+{
+  "name": "Stefan Thomas's IronKey ✝",
+  "description": "Stefan Thomas's story remains one of the most famous dramas in crypto. As of 2026, nothing has fundamentally changed: he still has two attempts remaining out of ten before the IronKey permanently destroys its data. The device holds the keys to 7,002 BTC, received in 2011 as payment for the educational video 'What is Bitcoin?'. Thomas wrote the password on a piece of paper and later lost it. After eight failed attempts he stopped — unwilling to risk everything. In 2023–2025, cybersecurity firm Unciphered claimed to have found a way to crack the same IronKey model. Thomas declined their offer, citing legal complications, privacy concerns, and an unwillingness to take the risk.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/23.jpg",
+  "external_url": "https://cryptometery.xyz/tombstone/23",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Tombstone"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Born",
+      "value": "2011"
+    },
+    {
+      "trait_type": "Died",
+      "value": "2011"
+    },
+    {
+      "trait_type": "Cause of Death",
+      "value": "Lost"
+    },
+    {
+      "trait_type": "Amount Lost",
+      "value": "$700,000,000"
+    },
+    {
+      "trait_type": "Group",
+      "value": "Forgotten Keys"
+    },
+    {
+      "trait_type": "Epitaph",
+      "value": "7,002 BTC. Eight attempts down. Two tries left. No room for error."
+    }
+  ]
+}

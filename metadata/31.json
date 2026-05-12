@@ -1,0 +1,40 @@
+{
+  "name": "Drift Protocol ✝",
+  "description": "A tombstone commemorating the collapse of Drift Protocol (2021–2026). Months of preparation. April Fools' Day. $285 million. Part of the Lazarus set — collect the full set to craft the villain portrait.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/31.jpg",
+  "external_url": "https://cryptometery.xyz/tombstone/31",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Tombstone"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Born",
+      "value": "2021"
+    },
+    {
+      "trait_type": "Died",
+      "value": "2026"
+    },
+    {
+      "trait_type": "Cause of Death",
+      "value": "Hack"
+    },
+    {
+      "trait_type": "Amount Lost",
+      "value": "$285,000,000"
+    },
+    {
+      "trait_type": "Group",
+      "value": "Lazarus"
+    },
+    {
+      "trait_type": "Epitaph",
+      "value": "Months of preparation. April Fools' Day. $285 million."
+    }
+  ]
+}

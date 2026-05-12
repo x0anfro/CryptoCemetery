@@ -1,8 +1,8 @@
 {
-  "name": "??? ✝ — Coming Soon",
-  "description": "This tombstone has not been revealed yet. A new wave is coming to Crypto Cemetery.",
-  "image": "ipfs://bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i",
-  "external_url": "https://crypto-cemetery.xyz/tombstone/9",
+  "name": "BTC-e ✝",
+  "description": "A tombstone commemorating the collapse of BTC-e (2011–2017). Where crime paid — until the FBI showed up. Part of the BTC-e set — collect the full set to craft the villain portrait.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/9.jpg",
+  "external_url": "https://cryptometery.xyz/tombstone/9",
   "attributes": [
     {
       "trait_type": "Type",
@@ -13,8 +13,28 @@
       "value": "Common"
     },
     {
-      "trait_type": "Status",
-      "value": "Unrevealed"
+      "trait_type": "Born",
+      "value": "2011"
+    },
+    {
+      "trait_type": "Died",
+      "value": "2017"
+    },
+    {
+      "trait_type": "Cause of Death",
+      "value": "Hack"
+    },
+    {
+      "trait_type": "Amount Lost",
+      "value": "$9,000,000,000"
+    },
+    {
+      "trait_type": "Group",
+      "value": "BTC-e"
+    },
+    {
+      "trait_type": "Epitaph",
+      "value": "Where crime paid — until the FBI showed up."
     }
   ]
 }

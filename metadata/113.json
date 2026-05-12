@@ -1,0 +1,48 @@
+{
+  "name": "Satoshi Nakamoto",
+  "description": "LEGENDARY — Satoshi Nakamoto (aka \"The Ghost\"). To this day, there is no conclusive proof of who hides behind the pseudonym. In 2025–2026, cryptographer Adam Back (New York Times investigation) and Peter Todd (HBO documentary) were named as suspects — both deny involvement. That Satoshi has never touched the billions reinforces the belief in the project's ideological purity — or simply means the keys are long gone.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/113.jpg",
+  "external_url": "https://cryptometery.xyz/legendary/113",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Legendary Villain Portrait"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Group",
+      "value": "Forgotten Keys"
+    },
+    {
+      "trait_type": "Alias",
+      "value": "The Ghost"
+    },
+    {
+      "trait_type": "Crime",
+      "value": "Voluntary Disappearance"
+    },
+    {
+      "trait_type": "Sentence",
+      "value": "Unknown"
+    },
+    {
+      "trait_type": "Status",
+      "value": "Unknown"
+    },
+    {
+      "trait_type": "Total Damage",
+      "value": "$109,000,000,000"
+    },
+    {
+      "trait_type": "Victims",
+      "value": "None — or everyone"
+    },
+    {
+      "trait_type": "Famous Quote",
+      "value": "I've moved on to other things."
+    }
+  ]
+}

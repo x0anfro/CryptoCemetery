@@ -1,8 +1,8 @@
 {
   "name": "FTX Exchange ✝",
-  "description": "A tombstone commemorating the death of FTX Exchange. Born: 2019. Died: 2022. Part of the FTX trifecta — collect all 3 to craft the Legendary villain card.",
-  "image": "ipfs://bafybeicrcw6hq4y4v2c4r6yejve6wanlcijza6zfg4h4hphbpplq76qvfi",
-  "external_url": "https://crypto-cemetery.xyz/tombstone/1",
+  "description": "A tombstone commemorating the collapse of FTX Exchange (2019–2022). Customer funds? Never heard of her. Part of the FTX set — collect the full set to craft the villain portrait.",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/1.jpg",
+  "external_url": "https://cryptometery.xyz/tombstone/1",
   "attributes": [
     {
       "trait_type": "Type",
@@ -29,12 +29,8 @@
       "value": "$8,000,000,000"
     },
     {
-      "trait_type": "Villain Group",
+      "trait_type": "Group",
       "value": "FTX"
-    },
-    {
-      "trait_type": "Villain",
-      "value": "Sam Bankman-Fried"
     },
     {
       "trait_type": "Epitaph",

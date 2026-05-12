@@ -28,27 +28,28 @@ function SlotCard({ name, label, owned }: { name: string; label?: string; owned:
 }
 
 function LegendaryCard({
-  legendary, crafted, canCraft, onClick,
+  legendary, crafted, userOwns, canCraft, onClick,
 }: {
   legendary: ReturnType<typeof LEGENDARIES.find> & object;
-  crafted: boolean; canCraft: boolean; onClick: () => void;
+  crafted: boolean; userOwns: boolean; canCraft: boolean; onClick: () => void;
 }) {
   if (!legendary) return null;
   return (
     <button
-      onClick={onClick}
-      className={`w-full clip-cut border p-3 mb-3 transition-all text-left group ${
-        crafted    ? "border-border opacity-40"
-        : canCraft ? "border-accent/40 hover:border-accent/70"
-        :            "border-border hover:border-accent/20"
+      onClick={userOwns ? onClick : undefined}
+      className={`w-full clip-cut border p-3 mb-3 transition-all text-left ${userOwns ? "group cursor-pointer" : "cursor-default"} ${
+        crafted && !userOwns ? "border-border"
+        : userOwns           ? "border-accent/50"
+        : canCraft           ? "border-accent/40"
+        :                      "border-border"
       }`}
     >
       <div className="w-full aspect-square overflow-hidden clip-cut-sm bg-navy mb-2 relative">
         <img
-          src={`/nft/${legendary.id}.jpg`}
+          src={userOwns ? `/nft/${legendary.id}.jpg` : `/nft/${legendary.id}_closed.jpg`}
           alt={legendary.name}
           className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-          onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+          onError={(e) => { (e.target as HTMLImageElement).src = `/nft/${legendary.id}.jpg`; }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent" />
         <div className="absolute bottom-1.5 right-1.5 font-mono text-[7px] text-muted/50 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -103,23 +104,38 @@ export function MtGoxCraftSection({ balances, karpelesCrafted, vinnikCrafted }: 
   const busyV = pendingV || confirmV;
 
   const { data: bilyData, refetch: refetchBily } = useReadContracts({
-    contracts: [{
-      address: CONTRACT_ADDRESS, abi: ABI, functionName: "balanceOf" as const,
-      args: [address ?? "0x0000000000000000000000000000000000000000", BigInt(203)] as const,
-    }],
+    contracts: [
+      {
+        address: CONTRACT_ADDRESS, abi: ABI, functionName: "balanceOf" as const,
+        args: [address ?? "0x0000000000000000000000000000000000000000", BigInt(203)] as const,
+      },
+      {
+        address: CONTRACT_ADDRESS, abi: ABI, functionName: "balanceOf" as const,
+        args: [address ?? "0x0000000000000000000000000000000000000000", BigInt(103)] as const,
+      },
+      {
+        address: CONTRACT_ADDRESS, abi: ABI, functionName: "balanceOf" as const,
+        args: [address ?? "0x0000000000000000000000000000000000000000", BigInt(108)] as const,
+      },
+    ],
     query: { enabled: !!address, refetchInterval: busyB ? 3_000 : 20_000 },
   });
 
-  const bilyBalance = Number(bilyData?.[0]?.result ?? balances[203] ?? 0);
+  const bilyBalance     = Number(bilyData?.[0]?.result ?? balances[203] ?? 0);
+  const karpBalance     = Number(bilyData?.[1]?.result ?? 0);
+  const hasVinnikNFT    = Number(bilyData?.[2]?.result ?? 0) > 0;
   const hasBily1    = bilyBalance >= 1;
-  const hasBily2    = bilyBalance >= 2;
+  const bilyRevealed = bilyBalance > 0;
 
-  const hasMtGox2 = (balances[7] ?? 0) >= 2;
-  const hasBtcE2  = (balances[9] ?? 0) >= 2;
+  const hasMtGox2     = (balances[7] ?? 0) >= 2;
+  const hasBtcE2      = (balances[9] ?? 0) >= 2;
 
+  // Karpeles: proof = Bilyuchenko owned, fuel = MtGox×2 + Bitcoinica
   const canGetBily  = hasTombstones;
-  const canKarpeles = hasMtGox2 && hasBily1 && !karpelesCrafted;
-  const canVinnik   = hasBtcE2  && hasBily1 && !vinnikCrafted;
+  const canKarpeles = hasBily1 && hasMtGox2 && hasBitcoinica && !karpelesCrafted;
+  // Vinnik: proof = Karpeles owned (not burned), fuel = BTC-e×2 + Bitcoinica
+  const hasKarpeles = karpBalance >= 1;
+  const canVinnik   = hasKarpeles && hasBtcE2 && hasBitcoinica && !vinnikCrafted;
 
   useEffect(() => {
     if (!successB) return;
@@ -158,7 +174,13 @@ export function MtGoxCraftSection({ balances, karpelesCrafted, vinnikCrafted }: 
 
   return (
     <>
-      {modalLegendary && <LegendaryModal legendary={modalLegendary} onClose={() => setModal(null)} />}
+      {modalLegendary && (
+        <LegendaryModal
+          legendary={modalLegendary}
+          crafted={modal === 103 ? karpBalance >= 1 : hasVinnikNFT}
+          onClose={() => setModal(null)}
+        />
+      )}
       {intModal && <IntermediateModal intermediate={intModal} onClose={() => setIntModal(null)} />}
 
       <div className="clip-cut border border-border p-5 col-span-1 md:col-span-2 xl:col-span-3">
@@ -180,9 +202,9 @@ export function MtGoxCraftSection({ balances, karpelesCrafted, vinnikCrafted }: 
           </div>
           <div className="border border-border/50 bg-surface/50 clip-cut-sm px-4 py-3">
             <p className="font-sans text-[12px] text-muted leading-relaxed">
-              <span className="text-accent font-semibold">Алексей Билюченко</span> — связующее звено между Mt. Gox и BTC-e.
-              Сначала взломал биржу, потом помогал Виннику отмывать украденное.
-              Сожгите три надгробия чтобы получить Билюченко, затем используйте его для обоих дел: 1× для Карпелеса, 2× для Винника.
+              <span className="text-accent font-semibold">Alexei Bilyuchenko</span> — the link between Mt. Gox and BTC-e.
+              First hacked the exchange, then helped Vinnik launder the stolen funds.
+              Burn three tombstones to get Bilyuchenko, then use him for both cases: 1× for Karpeles, 2× for Vinnik.
             </p>
           </div>
         </div>
@@ -193,7 +215,7 @@ export function MtGoxCraftSection({ balances, karpelesCrafted, vinnikCrafted }: 
           <div className="flex flex-col">
             <div className="flex items-center gap-2 mb-4">
               <div className="font-mono text-[9px] tracking-widest text-muted uppercase bg-surface border border-border px-2 py-1">Stage 1</div>
-              <div className="font-mono text-[10px] text-text">Раскрыть связь</div>
+              <div className="font-mono text-[10px] text-text">Expose the link</div>
               <div className="flex gap-1 ml-auto">
                 {ownedSlots.map((o, i) => (
                   <div key={i} className={`w-1.5 h-1.5 rotate-45 ${o ? "bg-accent" : "bg-border"}`} />
@@ -211,30 +233,30 @@ export function MtGoxCraftSection({ balances, karpelesCrafted, vinnikCrafted }: 
 
             {/* Bilyuchenko card */}
             <button
-              onClick={() => setIntModal(bilyuchenko)}
-              className={`w-full clip-cut border p-3 mb-3 transition-all text-left group ${
-                bilyBalance > 0 ? "border-accent/50 hover:border-accent/80" : "border-border hover:border-accent/30"
+              onClick={bilyRevealed ? () => setIntModal(bilyuchenko) : undefined}
+              className={`w-full clip-cut border p-3 mb-3 transition-all text-left ${bilyRevealed ? "group cursor-pointer" : "cursor-default"} ${
+                bilyRevealed ? "border-accent/50" : "border-border"
               }`}
             >
               <div className="w-full aspect-square overflow-hidden clip-cut-sm bg-navy mb-2 relative">
                 <img
-                  src="/nft/203.jpg"
+                  src={bilyRevealed ? "/nft/203.jpg" : "/nft/203_closed.jpg"}
                   alt="Alexei Bilyuchenko"
                   className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                  onError={(e) => { (e.target as HTMLImageElement).src = "/nft/203.jpg"; }}
                 />
                 <div className="absolute bottom-1.5 right-1.5 font-mono text-[7px] text-muted/50 opacity-0 group-hover:opacity-100 transition-opacity">
-                  подробнее →
+                  details →
                 </div>
               </div>
               <div className="font-mono text-[9px] tracking-widest uppercase text-center px-2 py-0.5 border mb-1.5 mx-auto w-fit
                               border-accent/30 bg-accent/10 text-accent">
-                ◈ Кроссовер
+                ◈ Crossover
               </div>
               <div className="font-sans text-xs text-text font-semibold text-center">{bilyuchenko.name}</div>
               <div className="font-mono text-[9px] text-muted text-center">{bilyuchenko.role}</div>
-              {bilyBalance > 0 && (
-                <div className="font-mono text-[10px] text-accent text-center mt-1.5">×{bilyBalance} в кошельке</div>
+              {bilyRevealed && (
+                <div className="font-mono text-[10px] text-accent text-center mt-1.5">{bilyBalance > 0 ? `×${bilyBalance} in wallet` : "Crafted ✓"}</div>
               )}
             </button>
 
@@ -260,16 +282,19 @@ export function MtGoxCraftSection({ balances, karpelesCrafted, vinnikCrafted }: 
               <div className="font-mono text-[9px] tracking-widest text-muted uppercase bg-surface border border-border px-2 py-1">Stage 2a</div>
               <div className="font-mono text-[10px] text-text">Mt. Gox</div>
               <div className="flex gap-1 ml-auto">
-                {[hasMtGox, hasMtGox2, hasBily1].map((o, i) => (
+                {[hasBily1, hasMtGox, hasMtGox2, hasBitcoinica].map((o, i) => (
                   <div key={i} className={`w-1.5 h-1.5 rotate-45 ${o ? "bg-accent" : "bg-border"}`} />
                 ))}
               </div>
             </div>
 
+            <div className="grid grid-cols-2 gap-1.5 mb-2">
+              <SlotCard name="Bilyuchenko" label="proof" owned={hasBily1} />
+            </div>
             <div className="grid grid-cols-3 gap-1.5 mb-4">
-              <SlotCard name="Mt. Gox" label="×1" owned={hasMtGox} />
-              <SlotCard name="Mt. Gox" label="×2" owned={hasMtGox2} />
-              <SlotCard name="Bilyuchenko" owned={hasBily1} />
+              <SlotCard name="Mt. Gox"    label="×1" owned={hasMtGox} />
+              <SlotCard name="Mt. Gox"    label="×2" owned={hasMtGox2} />
+              <SlotCard name="Bitcoinica" owned={hasBitcoinica} />
             </div>
 
             <div className="h-px bg-border mb-4" />
@@ -277,6 +302,7 @@ export function MtGoxCraftSection({ balances, karpelesCrafted, vinnikCrafted }: 
             <LegendaryCard
               legendary={karpeles}
               crafted={karpelesCrafted}
+              userOwns={hasKarpeles}
               canCraft={canKarpeles}
               onClick={() => setModal(103)}
             />
@@ -295,8 +321,9 @@ export function MtGoxCraftSection({ balances, karpelesCrafted, vinnikCrafted }: 
                : successK      ? "★ Crafted"
                : busyK         ? "Crafting…"
                : canKarpeles   ? "CRAFT"
+               : !hasBily1     ? "Need Bilyuchenko"
                : !hasMtGox2    ? "Mt. Gox ×2"
-               :                 "Need Bilyuchenko"}
+               :                 "Need Bitcoinica"}
             </button>
           </div>
 
@@ -306,16 +333,19 @@ export function MtGoxCraftSection({ balances, karpelesCrafted, vinnikCrafted }: 
               <div className="font-mono text-[9px] tracking-widest text-muted uppercase bg-surface border border-border px-2 py-1">Stage 2b</div>
               <div className="font-mono text-[10px] text-text">BTC-e</div>
               <div className="flex gap-1 ml-auto">
-                {[hasBtcE, hasBtcE2, hasBily1].map((o, i) => (
+                {[hasKarpeles, hasBtcE, hasBtcE2, hasBitcoinica].map((o, i) => (
                   <div key={i} className={`w-1.5 h-1.5 rotate-45 ${o ? "bg-accent" : "bg-border"}`} />
                 ))}
               </div>
             </div>
 
+            <div className="grid grid-cols-2 gap-1.5 mb-2">
+              <SlotCard name="Karpeles" label="proof" owned={hasKarpeles} />
+            </div>
             <div className="grid grid-cols-3 gap-1.5 mb-4">
-              <SlotCard name="BTC-e" label="×1" owned={hasBtcE} />
-              <SlotCard name="BTC-e" label="×2" owned={hasBtcE2} />
-              <SlotCard name="Bilyuchenko" owned={hasBily1} />
+              <SlotCard name="BTC-e"      label="×1" owned={hasBtcE} />
+              <SlotCard name="BTC-e"      label="×2" owned={hasBtcE2} />
+              <SlotCard name="Bitcoinica" owned={hasBitcoinica} />
             </div>
 
             <div className="h-px bg-border mb-4" />
@@ -323,6 +353,7 @@ export function MtGoxCraftSection({ balances, karpelesCrafted, vinnikCrafted }: 
             <LegendaryCard
               legendary={vinnik}
               crafted={vinnikCrafted}
+              userOwns={hasVinnikNFT}
               canCraft={canVinnik}
               onClick={() => setModal(108)}
             />
@@ -341,8 +372,9 @@ export function MtGoxCraftSection({ balances, karpelesCrafted, vinnikCrafted }: 
                : successV    ? "★ Crafted"
                : busyV       ? "Crafting…"
                : canVinnik   ? "CRAFT"
+               : !hasKarpeles ? "Need Karpeles"
                : !hasBtcE2   ? "BTC-e ×2"
-               :               "Need Bilyuchenko"}
+               :               "Need Bitcoinica"}
             </button>
           </div>
 

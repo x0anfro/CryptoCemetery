@@ -1,16 +1,20 @@
 {
-  "name": "Do Kwon — The Terra Villain",
-  "description": "LEGENDARY. Do Kwon (aka \"Lunatic\") — the mastermind behind the Terra collapse. Obtain only by burning the Terra tombstone trifecta. One exists. Ever.",
-  "image": "ipfs://bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i",
-  "external_url": "https://crypto-cemetery.xyz/legendary/102",
+  "name": "Do Kwon",
+  "description": "LEGENDARY — Do Kwon (aka \"Lunatic\"), mastermind behind the Terra collapse. Crime: Fraud & Securities Violations. Status: Arrested. \"I don't debate poor people.\"",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/102.jpg",
+  "external_url": "https://cryptometery.xyz/legendary/102",
   "attributes": [
     {
       "trait_type": "Type",
-      "value": "Legendary Villain"
+      "value": "Legendary Villain Portrait"
     },
     {
       "trait_type": "Rarity",
       "value": "Legendary"
+    },
+    {
+      "trait_type": "Group",
+      "value": "Terra"
     },
     {
       "trait_type": "Alias",
@@ -26,7 +30,7 @@
     },
     {
       "trait_type": "Status",
-      "value": "Arrested in Montenegro"
+      "value": "Arrested"
     },
     {
       "trait_type": "Total Damage",
@@ -35,10 +39,6 @@
     {
       "trait_type": "Victims",
       "value": "500,000+"
-    },
-    {
-      "trait_type": "Villain Group",
-      "value": "Terra"
     },
     {
       "trait_type": "Famous Quote",

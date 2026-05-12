@@ -1,16 +1,20 @@
 {
-  "name": "Carlos Matos — The BitConnect Villain",
-  "description": "LEGENDARY. Carlos Matos (aka \"BitConnect Guy\") — the mastermind behind the BitConnect collapse. Obtain only by burning the BitConnect tombstone trifecta. One exists. Ever.",
-  "image": "ipfs://bafybeicezg2dudclqyh22z2oeq6mesq3oyuedljmx5fpfc4uvpm7jcqt6i",
-  "external_url": "https://crypto-cemetery.xyz/legendary/104",
+  "name": "Carlos Matos",
+  "description": "LEGENDARY — Carlos Matos (aka \"BitConnect Guy\"), mastermind behind the BitConnect collapse. Crime: Promoting Securities Fraud. Status: Charged. \"WHATS UP BITCONNEEEEECT.\"",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/104.jpg",
+  "external_url": "https://cryptometery.xyz/legendary/104",
   "attributes": [
     {
       "trait_type": "Type",
-      "value": "Legendary Villain"
+      "value": "Legendary Villain Portrait"
     },
     {
       "trait_type": "Rarity",
       "value": "Legendary"
+    },
+    {
+      "trait_type": "Group",
+      "value": "BitConnect"
     },
     {
       "trait_type": "Alias",
@@ -35,10 +39,6 @@
     {
       "trait_type": "Victims",
       "value": "300,000+"
-    },
-    {
-      "trait_type": "Villain Group",
-      "value": "BitConnect"
     },
     {
       "trait_type": "Famous Quote",

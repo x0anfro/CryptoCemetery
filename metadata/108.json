@@ -1,0 +1,48 @@
+{
+  "name": "Alexander Vinnik",
+  "description": "EPIC — Alexander Vinnik (aka \"BTC-e Baron\"), mastermind behind the BTC-e collapse. Crime: Money Laundering. Status: Convicted. \"I had no idea what my clients were doing.\"",
+  "image": "ipfs://bafybeieuqjt5ogafqz4aujmjrj2cwb5sl7rbk4ei6r67bwcper3gknnwce/108.jpg",
+  "external_url": "https://cryptometery.xyz/legendary/108",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Epic Villain Portrait"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Epic"
+    },
+    {
+      "trait_type": "Group",
+      "value": "BTC-e"
+    },
+    {
+      "trait_type": "Alias",
+      "value": "BTC-e Baron"
+    },
+    {
+      "trait_type": "Crime",
+      "value": "Money Laundering"
+    },
+    {
+      "trait_type": "Sentence",
+      "value": "5 years (France)"
+    },
+    {
+      "trait_type": "Status",
+      "value": "Convicted"
+    },
+    {
+      "trait_type": "Total Damage",
+      "value": "$4,000,000,000"
+    },
+    {
+      "trait_type": "Victims",
+      "value": "Mt. Gox creditors"
+    },
+    {
+      "trait_type": "Famous Quote",
+      "value": "I had no idea what my clients were doing."
+    }
+  ]
+}
